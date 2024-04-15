@@ -3,13 +3,47 @@ package fr.stephanj.app.quizzako.infrastructure.config.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.context.DelegatingSecurityContextRepository;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
+
+	@Bean
+	SecurityContextRepository securityContextRepository() {
+		return new DelegatingSecurityContextRepository(new RequestAttributeSecurityContextRepository(),
+				new HttpSessionSecurityContextRepository());
+	}
+
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	}
+
+	@Bean
+	WebSecurityCustomizer webSecurityCustomizer() throws Exception {
+		return (WebSecurity web) -> web.ignoring().requestMatchers("/css/**");
+	}
+
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		return http.authorizeHttpRequests(auth -> auth.requestMatchers("/").permitAll().anyRequest().authenticated())
-				.build();
+		http.authorizeHttpRequests(auth -> {
+			auth.requestMatchers("/", "/about", "/quizzes", "/progress").permitAll();
+			auth.requestMatchers("/register").anonymous();
+			auth.requestMatchers("/teacher/**").hasRole("TEACHER");
+			auth.requestMatchers("/student/**").hasRole("STUDENT");
+			auth.requestMatchers("/admin/**").hasRole("ADMIN");
+			auth.anyRequest().authenticated();
+		}).formLogin(l -> l.defaultSuccessUrl("/")).logout(logout -> logout.logoutSuccessUrl("/"));
+		return http.build();
 	}
 }
