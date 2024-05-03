@@ -2,8 +2,6 @@ package fr.stephanj.app.quizzako.domain.user.model;
 
 import java.util.Objects;
 
-import fr.stephanj.app.quizzako.domain.user.service.EncryptionService;
-
 public class User {
 
 	private Long id;
@@ -45,9 +43,24 @@ public class User {
 		Objects.requireNonNull(role, "User with null role not allowed");
 	}
 
-	public void encryptPassword(EncryptionService encryptionService) {
-		Objects.requireNonNull(encryptionService, "EncryptionService is null");
-		this.password = encryptionService.encode(password);
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public String getFirstname() {

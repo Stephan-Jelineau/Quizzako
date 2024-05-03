@@ -37,11 +37,10 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(auth -> {
-			auth.requestMatchers("/", "/about", "/quizzes", "/progress").permitAll();
+			auth.requestMatchers("/").permitAll();
+			auth.requestMatchers("/account").authenticated();
+			auth.requestMatchers("/account/delete").authenticated();
 			auth.requestMatchers("/register").anonymous();
-			auth.requestMatchers("/teacher/**").hasRole("TEACHER");
-			auth.requestMatchers("/student/**").hasRole("STUDENT");
-			auth.requestMatchers("/admin/**").hasRole("ADMIN");
 			auth.anyRequest().authenticated();
 		}).formLogin(l -> l.defaultSuccessUrl("/")).logout(logout -> logout.logoutSuccessUrl("/"));
 		return http.build();

@@ -33,7 +33,7 @@ public class UserEntity {
 	@NotBlank
 	private String password;
 
-	@NotNull
+	@NotBlank
 	private String role;
 
 	public UserEntity() {

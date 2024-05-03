@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import fr.stephanj.app.quizzako.domain.user.repository.UserRepository;
 import fr.stephanj.app.quizzako.infrastructure.user.entity.UserEntity;
+import fr.stephanj.app.quizzako.infrastructure.user.persistence.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

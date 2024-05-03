@@ -1,4 +1,4 @@
-package fr.stephanj.app.quizzako.application.user.response;
+package fr.stephanj.app.quizzako.presentation.user.response;
 
 public class BasicUserFullNameResponse {
 

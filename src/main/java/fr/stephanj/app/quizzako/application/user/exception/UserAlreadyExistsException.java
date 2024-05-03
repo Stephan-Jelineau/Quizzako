@@ -1,4 +1,4 @@
-package fr.stephanj.app.quizzako.infrastructure.user.exception;
+package fr.stephanj.app.quizzako.application.user.exception;
 
 public class UserAlreadyExistsException extends RuntimeException {
 

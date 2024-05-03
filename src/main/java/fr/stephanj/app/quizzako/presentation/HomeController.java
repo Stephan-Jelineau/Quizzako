@@ -1,4 +1,4 @@
-package fr.stephanj.app.quizzako.application;
+package fr.stephanj.app.quizzako.presentation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -8,9 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import fr.stephanj.app.quizzako.application.user.response.BasicUserFullNameResponse;
+import fr.stephanj.app.quizzako.application.user.service.UserService;
 import fr.stephanj.app.quizzako.domain.user.model.User;
-import fr.stephanj.app.quizzako.domain.user.service.UserService;
+import fr.stephanj.app.quizzako.presentation.user.response.BasicUserFullNameResponse;
 
 @Controller
 @RequestMapping("/")

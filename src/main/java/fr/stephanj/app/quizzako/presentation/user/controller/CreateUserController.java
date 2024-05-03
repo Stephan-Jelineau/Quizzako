@@ -1,5 +1,5 @@
 
-package fr.stephanj.app.quizzako.application.user.controller;
+package fr.stephanj.app.quizzako.presentation.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fr.stephanj.app.quizzako.application.user.request.CreateUserRequest;
 import fr.stephanj.app.quizzako.application.user.usecase.UserRegistrationUseCase;
-import fr.stephanj.app.quizzako.domain.user.model.User;
+import fr.stephanj.app.quizzako.presentation.user.request.CreateUserRequest;
+import fr.stephanj.app.quizzako.presentation.user.response.BasicUserFullNameResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -23,8 +23,9 @@ import jakarta.validation.Valid;
 @RequestMapping("/register")
 public class CreateUserController {
 
-	private static final String USER_REGISTER_PAGE = "user/register";
-	private static final String MODEL_ATTR_FORM = "userForm";
+	private static final String SUCCESS_FLASH_ATTR = "successMessage";
+	private static final String USER_REGISTER_PAGE = "user/register_user";
+	private static final String REGISTER_FORM = "userForm";
 	private static final String ERROR_CODE_PASSWORD_MUST_MATCH = "user.passwordsMustMatch";
 
 	@Autowired
@@ -32,12 +33,12 @@ public class CreateUserController {
 
 	@GetMapping
 	public String customerForm(Model model) {
-		model.addAttribute(MODEL_ATTR_FORM, new CreateUserRequest());
+		model.addAttribute(REGISTER_FORM, new CreateUserRequest());
 		return USER_REGISTER_PAGE;
 	}
 
 	@PostMapping
-	public ModelAndView createUser(@Valid @ModelAttribute(MODEL_ATTR_FORM) CreateUserRequest userRequest,
+	public ModelAndView createUser(@Valid @ModelAttribute(REGISTER_FORM) CreateUserRequest userRequest,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest request,
 			HttpServletResponse response) {
 
@@ -50,9 +51,9 @@ public class CreateUserController {
 			return new ModelAndView(USER_REGISTER_PAGE);
 		}
 
-		User user = userRegistration.registerNewUserAndConnect(userRequest, request, response);
-		redirectAttributes.addFlashAttribute("successMessage",
-				"User " + user.getFirstname() + " " + user.getName() + " created");
+		BasicUserFullNameResponse dto = userRegistration.registerNewUserAndConnect(userRequest, request, response);
+		redirectAttributes.addFlashAttribute(SUCCESS_FLASH_ATTR,
+				"User " + dto.getFirstname() + " " + dto.getName() + " created");
 		return new ModelAndView("redirect:/");
 
 	}

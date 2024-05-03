@@ -16,7 +16,7 @@
 			class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 
 			<div th:if="${user != null}">
-				<div class="col-md-3 text-start">
+				<div class="col-md-auto text-start">
 					<p><b><span th:text="${user.name}"></span> <span th:text="${user.firstname}"></span></b></p>
 				</div>
 			</div>
@@ -39,7 +39,7 @@
 				</div>
 			</div>
 		</header>
-		<div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${successMessage != null}">
+		<div class="alert alert-success alert-dismissible fade show mt-2" role="alert" th:if="${successMessage != null}">
 			<strong th:text="${successMessage}"></strong>
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
