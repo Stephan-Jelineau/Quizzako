@@ -2,26 +2,32 @@
 <html lang="en" th:replace="~{common/skeleton :: base(~{::section})}" xmlns:th="http://www.thymeleaf.org">
 <section class="container">
 	<form action='#' th:action="@{/account}" method='post' class="box" th:object="${user}">
-		<div class="alert alert-danger mt-1 fst-italic fw-lighter" role="alert" th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}"></div>
+		<div class="alert alert-danger mt-1 fst-italic fw-lighter" role="alert" th:if="${#fields.hasGlobalErrors()}"
+			th:errors="*{global}"></div>
 		<div class="mb-3">
 			<label for="view_firstname" class="form-label">[[#{user.firstname}]]</label>
 			<input type="text" class="form-control" id="view_firstname" th:field="*{firstname}">
-			<div class="alert alert-danger mt-1 p-1 fst-italic fw-lighter" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">
+			<div class="alert alert-danger mt-1 p-1 fst-italic fw-lighter" th:if="${#fields.hasErrors('firstname')}"
+				th:errors="*{firstname}">
 			</div>
 		</div>
 		<div class="mb-3">
 			<label for="view_name" class="form-label">[[#{user.name}]]</label>
 			<input type="text" class="form-control" id="view_name" th:field="*{name}">
-			<div class="alert alert-danger mt-1 p-1 fst-italic fw-lighter" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+			<div class="alert alert-danger mt-1 p-1 fst-italic fw-lighter" th:if="${#fields.hasErrors('name')}"
+				th:errors="*{name}">
 			</div>
 		</div>
 		<div class="mb-3">
 			<label for="view_email" class="form-label">[[#{user.email}]]</label>
 			<input type="email" class="form-control" id="view_email" th:field="*{email}">
-			<div class="alert alert-danger mt-1 p-1 fst-italic fw-lighter" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+			<div class="alert alert-danger mt-1 p-1 fst-italic fw-lighter" th:if="${#fields.hasErrors('email')}"
+				th:errors="*{email}">
 			</div>
 		</div>
 		<button type="submit" class="btn btn-primary">Update</button>
 	</form>
+	<a href="#" th:href="@{/account/delete}" class=" mt-5 btn btn-outline-danger" role="button">Delete Account</a>
 </section>
+
 </html>

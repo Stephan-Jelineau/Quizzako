@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fr.stephanj.app.quizzako.application.user.usecase.UserRegistrationUseCase;
+import fr.stephanj.app.quizzako.application.user.usecase.UserSignUpUseCase;
 import fr.stephanj.app.quizzako.presentation.user.request.CreateUserRequest;
 import fr.stephanj.app.quizzako.presentation.user.response.BasicUserFullNameResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,7 +29,7 @@ public class CreateUserController {
 	private static final String ERROR_CODE_PASSWORD_MUST_MATCH = "user.passwordsMustMatch";
 
 	@Autowired
-	private UserRegistrationUseCase userRegistration;
+	private UserSignUpUseCase userRegistration;
 
 	@GetMapping
 	public String customerForm(Model model) {

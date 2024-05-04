@@ -3,6 +3,7 @@ package fr.stephanj.app.quizzako.infrastructure.user.persistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.stephanj.app.quizzako.application.user.exception.UserAlreadyExistsException;
 import fr.stephanj.app.quizzako.application.user.exception.UserNotFoundException;
@@ -11,6 +12,7 @@ import fr.stephanj.app.quizzako.infrastructure.user.entity.UserEntity;
 import fr.stephanj.app.quizzako.infrastructure.user.mapper.UserMapper;
 
 @Repository
+@Transactional
 public class UserRepositoryImpl implements UserRepository {
 
 	@Autowired

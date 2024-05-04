@@ -38,8 +38,7 @@ public class SecurityConfig {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(auth -> {
 			auth.requestMatchers("/").permitAll();
-			auth.requestMatchers("/account").authenticated();
-			auth.requestMatchers("/account/delete").authenticated();
+			auth.requestMatchers("/account/**").authenticated();
 			auth.requestMatchers("/register").anonymous();
 			auth.anyRequest().authenticated();
 		}).formLogin(l -> l.defaultSuccessUrl("/")).logout(logout -> logout.logoutSuccessUrl("/"));

@@ -13,7 +13,6 @@ import fr.stephanj.app.quizzako.domain.user.model.User;
 import fr.stephanj.app.quizzako.presentation.error.response.BasicErrorMessageResponse;
 import fr.stephanj.app.quizzako.presentation.user.response.BasicUserFullNameResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @ControllerAdvice
 public class GlobalErrorController {
@@ -22,7 +21,7 @@ public class GlobalErrorController {
 	UserService userService;
 
 	@ExceptionHandler
-	public String globalHandler(HttpSession session, Exception ex, Model model, @AuthenticationPrincipal UserDetails userDetails,
+	public String globalHandler(Exception ex, Model model, @AuthenticationPrincipal UserDetails userDetails,
 			HttpServletRequest request) {
 
 		if (userDetails == null) {
@@ -39,7 +38,8 @@ public class GlobalErrorController {
 			model.addAttribute("error", errorDto);
 		} catch (Exception e) {
 			new SecurityContextLogoutHandler().logout(request, null, null);
-			BasicErrorMessageResponse dto = new BasicErrorMessageResponse("You have been disconnected\n" + e.getMessage());
+			BasicErrorMessageResponse dto = new BasicErrorMessageResponse(
+					"You have been disconnected\n" + e.getMessage());
 			model.addAttribute("error", dto);
 		}
 		return "error";

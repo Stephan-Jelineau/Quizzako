@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class UserRegistrationUseCase {
+public class UserSignUpUseCase {
 
 	@Autowired
 	private UserService userService;
