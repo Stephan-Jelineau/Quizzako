@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.stephanj.app.quizzako.application.user.usecase.UserDeleteAccountUseCase;
+import fr.stephanj.app.quizzako.presentation.HomeConstants;
+import fr.stephanj.app.quizzako.presentation.user.controller.common.UserConstants;
 import jakarta.servlet.http.HttpServletRequest;
 
-@RequestMapping("/account/delete")
+@RequestMapping(UserConstants.USER_DELETE_URL)
 @Controller
 public class DeleteAccountUserController {
-
-	private static final String SUCCESS_FLASH_ATTR = "successMessage";
 
 	@Autowired
 	UserDeleteAccountUseCase useCase;
@@ -24,8 +24,8 @@ public class DeleteAccountUserController {
 	public String deleteAccount(@AuthenticationPrincipal UserDetails userDetails, RedirectAttributes redirectAttributes,
 			HttpServletRequest request) {
 		useCase.deleteAccount(userDetails.getUsername(), request);
-		redirectAttributes.addFlashAttribute(SUCCESS_FLASH_ATTR, "Account successfully deleted");
-		return "redirect:/";
+		redirectAttributes.addFlashAttribute(UserConstants.SUCCESS_FLASH_ATTR, "Account successfully deleted");
+		return "redirect:" + HomeConstants.HOME_URL;
 	}
 
 }

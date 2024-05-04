@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.stephanj.app.quizzako.application.user.usecase.UserSignUpUseCase;
+import fr.stephanj.app.quizzako.presentation.HomeConstants;
+import fr.stephanj.app.quizzako.presentation.user.controller.common.UserConstants;
 import fr.stephanj.app.quizzako.presentation.user.request.CreateUserRequest;
 import fr.stephanj.app.quizzako.presentation.user.response.BasicUserFullNameResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,13 +22,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/register")
+@RequestMapping(UserConstants.USER_REGISTER_URL)
 public class CreateUserController {
 
-	private static final String SUCCESS_FLASH_ATTR = "successMessage";
-	private static final String USER_REGISTER_PAGE = "user/register_user";
 	private static final String REGISTER_FORM = "userForm";
-	private static final String ERROR_CODE_PASSWORD_MUST_MATCH = "user.passwordsMustMatch";
 
 	@Autowired
 	private UserSignUpUseCase userRegistration;
@@ -34,7 +33,7 @@ public class CreateUserController {
 	@GetMapping
 	public String customerForm(Model model) {
 		model.addAttribute(REGISTER_FORM, new CreateUserRequest());
-		return USER_REGISTER_PAGE;
+		return UserConstants.USER_REGISTER_PAGE;
 	}
 
 	@PostMapping
@@ -43,18 +42,18 @@ public class CreateUserController {
 			HttpServletResponse response) {
 
 		if (bindingResult.hasErrors())
-			return new ModelAndView(USER_REGISTER_PAGE);
+			return new ModelAndView(UserConstants.USER_REGISTER_PAGE);
 
 		if (!userRequest.getPassword1().equals(userRequest.getPassword2())) {
-			bindingResult.rejectValue("password2", ERROR_CODE_PASSWORD_MUST_MATCH,
+			bindingResult.rejectValue("password2", UserConstants.ERROR_CODE_PASSWORD_MUST_MATCH,
 					"Passwords must match, please retry");
-			return new ModelAndView(USER_REGISTER_PAGE);
+			return new ModelAndView(UserConstants.USER_REGISTER_PAGE);
 		}
 
 		BasicUserFullNameResponse dto = userRegistration.registerNewUserAndConnect(userRequest, request, response);
-		redirectAttributes.addFlashAttribute(SUCCESS_FLASH_ATTR,
+		redirectAttributes.addFlashAttribute(UserConstants.SUCCESS_FLASH_ATTR,
 				"User " + dto.getFirstname() + " " + dto.getName() + " created");
-		return new ModelAndView("redirect:/");
+		return new ModelAndView("redirect:" + HomeConstants.HOME_URL);
 
 	}
 

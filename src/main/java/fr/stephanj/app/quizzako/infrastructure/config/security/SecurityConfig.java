@@ -14,6 +14,9 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 
+import fr.stephanj.app.quizzako.presentation.HomeConstants;
+import fr.stephanj.app.quizzako.presentation.user.controller.common.UserConstants;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -37,11 +40,12 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(auth -> {
-			auth.requestMatchers("/").permitAll();
-			auth.requestMatchers("/account/**").authenticated();
-			auth.requestMatchers("/register").anonymous();
+			auth.requestMatchers(HomeConstants.HOME_URL).permitAll();
+			auth.requestMatchers(UserConstants.USER_ACCOUNT_URL + "/**").authenticated();
+			auth.requestMatchers(UserConstants.USER_REGISTER_URL).anonymous();
 			auth.anyRequest().authenticated();
-		}).formLogin(l -> l.defaultSuccessUrl("/")).logout(logout -> logout.logoutSuccessUrl("/"));
+		}).formLogin(l -> l.defaultSuccessUrl(HomeConstants.HOME_URL))
+				.logout(logout -> logout.logoutSuccessUrl(HomeConstants.HOME_URL));
 		return http.build();
 	}
 }

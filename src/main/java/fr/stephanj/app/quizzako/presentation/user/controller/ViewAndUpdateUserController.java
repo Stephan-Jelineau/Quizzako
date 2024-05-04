@@ -14,17 +14,16 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.stephanj.app.quizzako.application.user.usecase.UserViewAndUpdateUseCase;
+import fr.stephanj.app.quizzako.presentation.user.controller.common.UserConstants;
 import fr.stephanj.app.quizzako.presentation.user.request.ViewAndUpdateUserRequest;
 import fr.stephanj.app.quizzako.presentation.user.response.BasicUserFullNameResponse;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/account")
+@RequestMapping(UserConstants.USER_ACCOUNT_URL)
 public class ViewAndUpdateUserController {
 
-	private static final String VIEW_USER_PAGE = "user/view_user";
 	private static final String VIEW_FORM = "user";
-	private static final String SUCCESS_FLASH_ATTR = "successMessage";
 
 	@Autowired
 	UserViewAndUpdateUseCase useCase;
@@ -33,7 +32,7 @@ public class ViewAndUpdateUserController {
 	public String showUserInfos(@AuthenticationPrincipal UserDetails userDetails, Model model) {
 		ViewAndUpdateUserRequest request = useCase.getFormUserInfoFor(userDetails.getUsername());
 		model.addAttribute(VIEW_FORM, request);
-		return VIEW_USER_PAGE;
+		return UserConstants.VIEW_USER_PAGE;
 	}
 
 	@PostMapping
@@ -42,12 +41,12 @@ public class ViewAndUpdateUserController {
 			RedirectAttributes redirectAttributes) {
 
 		if (bindingResult.hasErrors())
-			return new ModelAndView(VIEW_USER_PAGE);
+			return new ModelAndView(UserConstants.VIEW_USER_PAGE);
 
 		BasicUserFullNameResponse dto = useCase.updateUser(userRequest, userDetails.getUsername());
-		redirectAttributes.addFlashAttribute(SUCCESS_FLASH_ATTR,
+		redirectAttributes.addFlashAttribute(UserConstants.SUCCESS_FLASH_ATTR,
 				"User " + dto.getFirstname() + " " + dto.getName() + " updated");
-		return new ModelAndView("redirect:/account");
+		return new ModelAndView("redirect:" + UserConstants.USER_ACCOUNT_URL);
 	}
 
 }

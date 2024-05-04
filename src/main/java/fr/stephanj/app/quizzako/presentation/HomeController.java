@@ -13,7 +13,7 @@ import fr.stephanj.app.quizzako.domain.user.model.User;
 import fr.stephanj.app.quizzako.presentation.user.response.BasicUserFullNameResponse;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping(HomeConstants.HOME_URL)
 public class HomeController {
 
 	@Autowired
