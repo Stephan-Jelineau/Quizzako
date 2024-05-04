@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="en" th:replace="~{common/skeleton :: base(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<section class="container">
+	<h2 class="text-center" th:text="#{user.creation.form}"></h2>
+	<form action='#' th:action="@{/register}" method='post' class="box" th:object="${userForm}">
+		<div class="alert alert-danger mt-1 fst-italic fw-lighter" role="alert" th:if="${#fields.hasGlobalErrors()}"
+			th:errors="*{global}"></div>
+		<div class="mb-3">
+			<label for="view_firstname" class="form-label">[[#{user.firstname}]]</label>
+			<input type="text" class="form-control" id="view_firstname" th:field="*{firstname}">
+			<div class="alert alert-danger mt-1 p-1 fst-italic fw-lighter" th:if="${#fields.hasErrors('firstname')}"
+				th:errors="*{firstname}">
+			</div>
+		</div>
+		<div class="mb-3">
+			<label for="view_name" class="form-label">[[#{user.name}]]</label>
+			<input type="text" class="form-control" id="view_name" th:field="*{name}">
+			<div class="alert alert-danger mt-1 p-1 fst-italic fw-lighter" th:if="${#fields.hasErrors('name')}"
+				th:errors="*{name}">
+			</div>
+		</div>
+		<div class="mb-3">
+			<label for="view_email" class="form-label">[[#{user.email}]]</label>
+			<input type="email" class="form-control" id="view_email" th:field="*{email}">
+			<div class="alert alert-danger mt-1 p-1 fst-italic fw-lighter" th:if="${#fields.hasErrors('email')}"
+				th:errors="*{email}">
+			</div>
+		</div>
+		<div class="mb-3">
+			<label for="view_pwd" class="form-label">[[#{user.password}]]</label>
+			<input type="password" class="form-control" id="view_pwd" th:field="*{password1}">
+			<div class="alert alert-danger mt-1 p-1 fst-italic fw-lighter" th:if="${#fields.hasErrors('password1')}"
+				th:errors="*{password1}">
+			</div>
+		</div>
+		<div class="mb-3">
+			<label for="view_pwd2" class="form-label">[[#{user.password2}]]</label>
+			<input type="password" class="form-control" id="view_pwd2" th:field="*{password2}">
+			<div class="alert alert-danger mt-1 p-1 fst-italic fw-lighter" th:if="${#fields.hasErrors('password2')}"
+				th:errors="*{password2}">
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</section>
+
+</html>
