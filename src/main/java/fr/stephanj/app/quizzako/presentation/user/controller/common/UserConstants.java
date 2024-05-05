@@ -5,7 +5,6 @@ public class UserConstants {
 	//URL's
 	public static final String USER_REGISTER_URL =  "/register";
 	public static final String USER_ACCOUNT_URL = "/account";
-	public static final String USER_REQUEST_ROLE_URL = USER_ACCOUNT_URL + "/role";
 	public static final String USER_DELETE_URL =  USER_ACCOUNT_URL + "/delete";
 	
 	//Pages

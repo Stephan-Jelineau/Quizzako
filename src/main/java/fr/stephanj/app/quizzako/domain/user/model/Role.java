@@ -12,4 +12,10 @@ public enum Role {
     public String getDisplayName() {
         return displayName;
     }
+    
+    public static boolean isRequestableRole(Role role) {
+    	if(role.equals(TEACHER) || role.equals(STUDENT))
+    		return true;
+    	return false;
+    }
 }

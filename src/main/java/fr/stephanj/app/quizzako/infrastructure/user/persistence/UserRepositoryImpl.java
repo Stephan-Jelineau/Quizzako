@@ -7,9 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.stephanj.app.quizzako.application.user.exception.UserAlreadyExistsException;
 import fr.stephanj.app.quizzako.application.user.exception.UserNotFoundException;
+import fr.stephanj.app.quizzako.application.user.mapper.UserMapper;
 import fr.stephanj.app.quizzako.domain.user.model.User;
 import fr.stephanj.app.quizzako.infrastructure.user.entity.UserEntity;
-import fr.stephanj.app.quizzako.infrastructure.user.mapper.UserMapper;
 
 @Repository
 @Transactional
@@ -23,8 +23,8 @@ public class UserRepositoryImpl implements UserRepository {
 		if (jpaUserRepo.existsByEmail(user.getEmail()))
 			throw new UserAlreadyExistsException("User already exists, cannot save");
 		UserEntity userEntity = new UserEntity(user);
-		UserEntity entitySaved = jpaUserRepo.save(userEntity);
-		return UserMapper.toDomainUser(entitySaved);
+		jpaUserRepo.save(userEntity);
+		return user;
 	}
 
 	@Override
@@ -48,8 +48,8 @@ public class UserRepositoryImpl implements UserRepository {
 		userEntity.setFirstname(user.getFirstname());
 		userEntity.setName(user.getName());
 		userEntity.setEmail(user.getEmail());
-		UserEntity entitySaved = jpaUserRepo.save(userEntity);
-		return UserMapper.toDomainUser(entitySaved);
+		jpaUserRepo.save(userEntity);
+		return user;
 	}
 
 	@Override

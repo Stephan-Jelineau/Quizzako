@@ -1,4 +1,4 @@
-package fr.stephanj.app.quizzako.infrastructure.user.mapper;
+package fr.stephanj.app.quizzako.application.user.mapper;
 
 import fr.stephanj.app.quizzako.domain.user.model.Role;
 import fr.stephanj.app.quizzako.domain.user.model.User;
