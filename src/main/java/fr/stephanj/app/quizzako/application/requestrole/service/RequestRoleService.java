@@ -8,4 +8,9 @@ public interface RequestRoleService {
 	void saveRequestRole(RequestRole requestRole);
 
 	List<RequestRole> getAllRequest();
+
+	RequestRole getById(Long id);
+
+	void updateRequest(RequestRole rqst);
+
 }

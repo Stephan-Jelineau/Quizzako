@@ -43,7 +43,7 @@ public class ViewAndUpdateUserController {
 		if (bindingResult.hasErrors())
 			return new ModelAndView(UserConstants.VIEW_USER_PAGE);
 
-		BasicUserFullNameResponse dto = useCase.updateUser(userRequest, userDetails.getUsername());
+		BasicUserFullNameResponse dto = useCase.updateUserByUpdateView(userRequest, userDetails.getUsername());
 		redirectAttributes.addFlashAttribute(UserConstants.SUCCESS_FLASH_ATTR,
 				"User " + dto.getFirstname() + " " + dto.getName() + " updated");
 		return new ModelAndView("redirect:" + UserConstants.USER_ACCOUNT_URL);

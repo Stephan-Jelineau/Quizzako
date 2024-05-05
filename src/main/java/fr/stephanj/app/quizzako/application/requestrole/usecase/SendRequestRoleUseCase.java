@@ -3,6 +3,7 @@ package fr.stephanj.app.quizzako.application.requestrole.usecase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import fr.stephanj.app.quizzako.application.requestrole.exception.RoleRequestedAlreadyGranted;
 import fr.stephanj.app.quizzako.application.requestrole.exception.RoleRequestedNotAllowedException;
 import fr.stephanj.app.quizzako.application.requestrole.mapper.RequestRoleMapper;
 import fr.stephanj.app.quizzako.application.requestrole.service.RequestRoleService;
@@ -27,8 +28,8 @@ public class SendRequestRoleUseCase {
 		if (!Role.isRequestableRole(roleObj))
 			throw new RoleRequestedNotAllowedException("The requested role is not allowed");
 
-		if (user.getRole().equals(role))
-			return;
+		if (user.getRole().equals(roleObj))
+			throw new RoleRequestedAlreadyGranted("The role [" + role + "] requested is already assigned to your account");
 
 		RequestRole requestRole = RequestRoleMapper.toDomainRequestRole(roleObj, user);
 		roleService.saveRequestRole(requestRole);

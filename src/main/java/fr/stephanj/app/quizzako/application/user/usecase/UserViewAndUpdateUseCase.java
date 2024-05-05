@@ -22,11 +22,14 @@ public class UserViewAndUpdateUseCase {
 		return dto;
 	}
 
-	public BasicUserFullNameResponse updateUser(ViewAndUpdateUserRequest userRequest, String email) {
+	public BasicUserFullNameResponse updateUserByUpdateView(ViewAndUpdateUserRequest userRequest, String email) {
 		User user = userService.getUserByEmail(email);
-		if(userService.isMailNewAndAlreadyExisting(email, userRequest.getEmail()))
+		if(!email.equals(userRequest.getEmail()) && userService.existsByEmail(userRequest.getEmail()))
 			throw new UserAlreadyExistsException("The email " + email + " is already associated to an account");
-		userService.updateUser(user, userRequest);
+		user.setFirstname(userRequest.getFirstname());
+		user.setName(userRequest.getName());
+		user.setEmail(userRequest.getEmail());
+		userService.updateUser(user);
 		return new BasicUserFullNameResponse(user.getFirstname(), user.getName());
 	}
 

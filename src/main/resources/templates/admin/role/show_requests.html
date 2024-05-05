@@ -2,10 +2,6 @@
 <html lang="en" th:replace="~{common/skeleton :: base(~{::section})}" xmlns:th="http://www.thymeleaf.org">
 
 <section>
-	<div class="alert alert-info alert-dismissible fade show mt-2" role="alert" th:if="${flashMessage != null}">
-			<strong th:text="${flashMessage}"></strong>
-			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-		</div>
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -14,6 +10,7 @@
 				<th scope="col">User</th>
 				<th scope="col">Open date</th>
 				<th scope="col">Close date</th>
+				<th scope="col"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,6 +20,8 @@
 				<td th:text="${request.user.shortDisplay()}"></td>
 				<td th:text="${request.openDate}"></td>
 				<td th:text="${request.closeDate}"></td>
+				<td ><a th:if="${request.isActive == true}" href="#" th:href="@{/admin/role/request/grant/{requestId}(requestId=${request.id})}"
+						role="button" class="btn btn-primary">Grant</a></td>
 			</tr>
 		</tbody>
 	</table>

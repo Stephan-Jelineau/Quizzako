@@ -9,7 +9,9 @@ public interface UserRepository {
 
 	User findByEmail(String email);
 	
-	User update(User user);
+	void update(User user);
 	
 	boolean existsByEmail(String email);
+
+	User findById(Long userId);
 }

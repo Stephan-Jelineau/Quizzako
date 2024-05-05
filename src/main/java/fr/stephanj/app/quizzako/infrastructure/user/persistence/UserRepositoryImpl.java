@@ -42,19 +42,21 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public User update(User user) {
-		UserEntity userEntity = jpaUserRepo.findById(user.getId())
-				.orElseThrow(() -> new UserNotFoundException("User not found, cannot update"));
-		userEntity.setFirstname(user.getFirstname());
-		userEntity.setName(user.getName());
-		userEntity.setEmail(user.getEmail());
-		jpaUserRepo.save(userEntity);
-		return user;
+	public void update(User user) {
+		UserEntity entity = new UserEntity(user);
+		jpaUserRepo.save(entity);
 	}
 
 	@Override
 	public boolean existsByEmail(String email) {
 		return jpaUserRepo.existsByEmail(email);
+	}
+
+	@Override
+	public User findById(Long userId) {
+		UserEntity entity = jpaUserRepo.findById(userId)
+				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+		return UserMapper.toDomainUser(entity);
 	}
 
 }

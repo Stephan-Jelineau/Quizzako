@@ -24,4 +24,14 @@ public class RequestRoleServiceImpl implements RequestRoleService {
 		List<RequestRole> requests = roleRepo.findAllRequest();
 		return requests;
 	}
+
+	@Override
+	public RequestRole getById(Long id) {
+		return roleRepo.findById(id);
+	}
+
+	@Override
+	public void updateRequest(RequestRole rqst) {
+		roleRepo.update(rqst);
+	}
 }

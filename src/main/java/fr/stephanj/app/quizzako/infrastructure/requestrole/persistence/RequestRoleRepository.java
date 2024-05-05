@@ -10,4 +10,8 @@ public interface RequestRoleRepository {
 
 	List<RequestRole> findAllRequest();
 
+	RequestRole findById(Long id);
+
+	void update(RequestRole requestRole);
+
 }

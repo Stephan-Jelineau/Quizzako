@@ -41,6 +41,8 @@ public class UserEntity {
 	}
 
 	public UserEntity(@NotNull User user) {
+		if(user.getId() != null)
+			this.id = user.getId();
 		this.email = user.getEmail();
 		this.firstname = user.getFirstname();
 		this.name = user.getName();

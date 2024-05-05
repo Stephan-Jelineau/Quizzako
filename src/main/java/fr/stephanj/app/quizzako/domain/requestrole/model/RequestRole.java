@@ -30,7 +30,7 @@ public class RequestRole {
 		this.openDate = openDate;
 		this.closeDate = closeDate;
 	}
-
+	
 	public void closeRequest() {
 		isActive = false;
 		closeDate = LocalDate.now();

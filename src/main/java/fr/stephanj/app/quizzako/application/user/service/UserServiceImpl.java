@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import fr.stephanj.app.quizzako.domain.user.model.User;
 import fr.stephanj.app.quizzako.infrastructure.user.persistence.UserRepository;
 import fr.stephanj.app.quizzako.infrastructure.user.security.EncryptionService;
-import fr.stephanj.app.quizzako.presentation.user.request.ViewAndUpdateUserRequest;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,14 +24,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(User user, ViewAndUpdateUserRequest userRequest) {
-		user.setFirstname(userRequest.getFirstname());
-		user.setName(userRequest.getName());
-		user.setEmail(userRequest.getEmail());
-		userRepository.update(user);
-	}
-
-	@Override
 	public void deleteUserByEmail(String email) {
 		userRepository.deleteByEmail(email);
 	}
@@ -43,13 +34,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean isMailNewAndAlreadyExisting(String emailFromAuthenticatedUser, String emailFromRequest) {
-		return !emailFromAuthenticatedUser.equals(emailFromRequest) && userRepository.existsByEmail(emailFromRequest);
+	public boolean existsByEmail(String email) {
+		return userRepository.existsByEmail(email);
 	}
 
 	@Override
-	public boolean existsByEmail(String email) {
-		return userRepository.existsByEmail(email);
+	public void updateUser(User user) {
+		userRepository.update(user);
 	}
 
 }

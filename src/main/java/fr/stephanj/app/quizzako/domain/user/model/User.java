@@ -42,7 +42,11 @@ public class User {
 		Objects.requireNonNull(password, "User with null password not allowed");
 		Objects.requireNonNull(role, "User with null role not allowed");
 	}
-
+	
+	public void updateRole(Role role) {
+		this.role = role;
+	}
+	
 	public String shortDisplay() {
 		return name + " " + firstname;
 	}

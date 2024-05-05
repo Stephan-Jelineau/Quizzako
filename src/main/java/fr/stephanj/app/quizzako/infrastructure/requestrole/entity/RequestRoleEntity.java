@@ -25,7 +25,7 @@ public class RequestRoleEntity {
 	private Long id;
 
 	@NotNull
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.REMOVE, optional = false)
 	@JoinColumn(name = "user_id")
 	UserEntity user;
 
@@ -48,6 +48,8 @@ public class RequestRoleEntity {
 	}
 
 	public RequestRoleEntity(@NotNull RequestRole request, @NotNull UserEntity user) {
+		if(request.getId() != null)
+			this.id = request.getId();
 		this.user = user;
 		this.roleResquested = request.getRoleResquested().toString();
 		this.isActive = request.isActive();
