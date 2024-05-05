@@ -27,7 +27,12 @@
 		</div>
 		<button type="submit" class="btn btn-primary">Update</button>
 	</form>
-	<a href="#" th:href="@{/account/delete}" class=" mt-5 btn btn-outline-danger" role="button">Delete Account</a>
+	<div class="mt-2">
+		<a href="#" th:href="@{'/role/request?role=teacher'}" role="button" class="btn btn-secondary">I am a Teacher</a>
+		<a href="#" th:href="@{'/role/request?role=student'}" role="button" class="btn btn-secondary">I am a Student</a>
+	</div>
+
+	<a href="#" th:href="@{/account/delete}" role="button" class=" mt-5 btn btn-outline-danger">Delete Account</a>
 </section>
 
 </html>
