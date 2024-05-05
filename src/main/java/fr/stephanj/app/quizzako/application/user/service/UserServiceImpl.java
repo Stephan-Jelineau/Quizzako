@@ -47,4 +47,9 @@ public class UserServiceImpl implements UserService {
 		return !emailFromAuthenticatedUser.equals(emailFromRequest) && userRepository.existsByEmail(emailFromRequest);
 	}
 
+	@Override
+	public boolean existsByEmail(String email) {
+		return userRepository.existsByEmail(email);
+	}
+
 }

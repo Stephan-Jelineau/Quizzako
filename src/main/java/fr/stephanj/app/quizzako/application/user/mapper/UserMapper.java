@@ -18,7 +18,7 @@ public class UserMapper {
 				userEntity.getPassword(), Role.valueOf(userEntity.getRole()));
 	}
 
-	public static ViewAndUpdateUserRequest toDto(User user) {
+	public static ViewAndUpdateUserRequest toViewAndUpdateUserRequest(User user) {
 		return new ViewAndUpdateUserRequest(user.getFirstname(), user.getName(), user.getEmail());
 	}
 }

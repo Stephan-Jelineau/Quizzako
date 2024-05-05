@@ -12,7 +12,7 @@ CREATE TABLE request_role (
     user_id INT NOT NULL,
     role_resquested VARCHAR(50) NOT NULL,
     is_active BOOLEAN NOT NULL,
-    open_date VARCHAR(50) NOT NULL,
-    close_date VARCHAR(50),
+    open_date DATE NOT NULL,
+    close_date DATE,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{common/skeleton :: base(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+
+<section>
+	<div class="alert alert-info alert-dismissible fade show mt-2" role="alert" th:if="${flashMessage != null}">
+			<strong th:text="${flashMessage}"></strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">Active</th>
+				<th scope="col">User</th>
+				<th scope="col">Open date</th>
+				<th scope="col">Close date</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="request: ${requests}">
+				<td th:text="${request.id}"></td>
+				<td th:text="${request.isActive}"></td>
+				<td th:text="${request.user.shortDisplay()}"></td>
+				<td th:text="${request.openDate}"></td>
+				<td th:text="${request.closeDate}"></td>
+			</tr>
+		</tbody>
+	</table>
+</section>

@@ -12,7 +12,7 @@ import fr.stephanj.app.quizzako.domain.user.model.Role;
 import fr.stephanj.app.quizzako.domain.user.model.User;
 
 @Component
-public class RequestRoleUseCase {
+public class SendRequestRoleUseCase {
 
 	@Autowired
 	RequestRoleService roleService;
@@ -30,7 +30,7 @@ public class RequestRoleUseCase {
 		if (user.getRole().equals(role))
 			return;
 
-		RequestRole requestRole = RequestRoleMapper.toDomainRequestRole(roleObj, user.getId());
+		RequestRole requestRole = RequestRoleMapper.toDomainRequestRole(roleObj, user);
 		roleService.saveRequestRole(requestRole);
 	}
 

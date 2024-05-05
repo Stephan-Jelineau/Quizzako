@@ -1,5 +1,7 @@
 package fr.stephanj.app.quizzako.infrastructure.requestrole.entity;
 
+import java.time.LocalDate;
+
 import fr.stephanj.app.quizzako.domain.requestrole.model.RequestRole;
 import fr.stephanj.app.quizzako.infrastructure.user.entity.UserEntity;
 import jakarta.persistence.CascadeType;
@@ -34,12 +36,12 @@ public class RequestRoleEntity {
 	@Column(name = "is_active")
 	boolean isActive;
 
-	@NotBlank
+	@NotNull
 	@Column(name = "open_date")
-	String openDate;
+	LocalDate openDate;
 
 	@Column(name = "close_date")
-	String closeDate;
+	LocalDate closeDate;
 
 	public RequestRoleEntity() {
 
@@ -49,10 +51,14 @@ public class RequestRoleEntity {
 		this.user = user;
 		this.roleResquested = request.getRoleResquested().toString();
 		this.isActive = request.isActive();
-		this.openDate = request.getOpenDate().toString();
+		this.openDate = request.getOpenDate();
 
 		if (request.getCloseDate() != null)
-			this.closeDate = request.getCloseDate().toString();
+			this.closeDate = request.getCloseDate();
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	public UserEntity getUser() {
@@ -79,19 +85,19 @@ public class RequestRoleEntity {
 		this.isActive = isActive;
 	}
 
-	public String getOpenDate() {
+	public LocalDate getOpenDate() {
 		return openDate;
 	}
 
-	public void setOpenDate(String openDate) {
+	public void setOpenDate(LocalDate openDate) {
 		this.openDate = openDate;
 	}
 
-	public String getCloseDate() {
+	public LocalDate getCloseDate() {
 		return closeDate;
 	}
 
-	public void setCloseDate(String closeDate) {
+	public void setCloseDate(LocalDate closeDate) {
 		this.closeDate = closeDate;
 	}
 }

@@ -13,4 +13,6 @@ public interface UserService {
 	User getUserByEmail(String email);
 	
 	boolean isMailNewAndAlreadyExisting(String emailFromAuthenticatedUser, String emailFromRequest);
+
+	boolean existsByEmail(String email);
 }

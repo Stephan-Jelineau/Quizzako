@@ -26,7 +26,7 @@ import jakarta.validation.Valid;
 public class CreateUserController {
 
 	private static final String REGISTER_FORM = "userForm";
-
+	
 	@Autowired
 	private UserSignUpUseCase userRegistration;
 

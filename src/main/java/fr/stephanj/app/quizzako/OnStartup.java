@@ -22,6 +22,8 @@ public class OnStartup implements ApplicationRunner {
 
 	private void createAdminUser() {
 		User user = new User("admin", "admin", "admin@admin.fr", "admin", Role.ADMIN);
+		if(service.existsByEmail(user.getEmail()))
+			return;
 		service.registerNewUser(user);
 	}
 

@@ -3,21 +3,32 @@ package fr.stephanj.app.quizzako.domain.requestrole.model;
 import java.time.LocalDate;
 
 import fr.stephanj.app.quizzako.domain.user.model.Role;
+import fr.stephanj.app.quizzako.domain.user.model.User;
 
 public class RequestRole {
-	
+
 	Long id;
-	Long userId;
+	User user;
 	Role roleResquested;
 	boolean isActive;
 	LocalDate openDate;
 	LocalDate closeDate;
 
-	public RequestRole(Long userId, Role roleResquested) {
-		this.userId = userId;
+	public RequestRole(User user, Role roleResquested) {
+		this.user = user;
 		this.roleResquested = roleResquested;
 		isActive = true;
 		openDate = LocalDate.now();
+	}
+
+	public RequestRole(Long id, User user, Role roleResquested, boolean isActive, LocalDate openDate,
+			LocalDate closeDate) {
+		this.id = id;
+		this.user = user;
+		this.roleResquested = roleResquested;
+		this.isActive = isActive;
+		this.openDate = openDate;
+		this.closeDate = closeDate;
 	}
 
 	public void closeRequest() {
@@ -29,8 +40,8 @@ public class RequestRole {
 		return isActive;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
 	public Role getRoleResquested() {

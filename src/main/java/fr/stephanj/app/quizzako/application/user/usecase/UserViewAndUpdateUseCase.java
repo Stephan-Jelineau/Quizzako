@@ -18,7 +18,7 @@ public class UserViewAndUpdateUseCase {
 
 	public ViewAndUpdateUserRequest getFormUserInfoFor(String email) {
 		User user = userService.getUserByEmail(email);
-		ViewAndUpdateUserRequest dto = UserMapper.toDto(user);
+		ViewAndUpdateUserRequest dto = UserMapper.toViewAndUpdateUserRequest(user);
 		return dto;
 	}
 

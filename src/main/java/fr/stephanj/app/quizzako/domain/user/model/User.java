@@ -43,6 +43,10 @@ public class User {
 		Objects.requireNonNull(role, "User with null role not allowed");
 	}
 
+	public String shortDisplay() {
+		return name + " " + firstname;
+	}
+	
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}

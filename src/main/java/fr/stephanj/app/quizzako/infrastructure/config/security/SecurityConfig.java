@@ -14,7 +14,9 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 
+import fr.stephanj.app.quizzako.domain.user.model.Role;
 import fr.stephanj.app.quizzako.presentation.HomeConstants;
+import fr.stephanj.app.quizzako.presentation.admin.controller.common.AdminConstants;
 import fr.stephanj.app.quizzako.presentation.requestrole.common.RequestRoleConstants;
 import fr.stephanj.app.quizzako.presentation.user.controller.common.UserConstants;
 
@@ -45,6 +47,7 @@ public class SecurityConfig {
 			auth.requestMatchers(UserConstants.USER_REGISTER_URL).anonymous();
 			auth.requestMatchers(UserConstants.USER_ACCOUNT_URL + "/**").authenticated();
 			auth.requestMatchers(RequestRoleConstants.ROLE_URL + "/**").authenticated();
+			auth.requestMatchers(AdminConstants.ADMIN_PANEL_URL + "/**").hasRole(Role.ADMIN.toString());
 			auth.anyRequest().denyAll();
 		}).formLogin(l -> l.defaultSuccessUrl(HomeConstants.HOME_URL))
 				.logout(logout -> logout.logoutSuccessUrl(HomeConstants.HOME_URL));
