@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import fr.stephanj.app.quizzako.domain.user.model.User;
 import fr.stephanj.app.quizzako.infrastructure.user.persistence.UserRepository;
-import fr.stephanj.app.quizzako.infrastructure.user.security.EncryptionServiceImpl;
+import fr.stephanj.app.quizzako.infrastructure.user.security.EncryptionService;
 import fr.stephanj.app.quizzako.presentation.user.request.ViewAndUpdateUserRequest;
 
 @Service
@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 
 	@Autowired
-	EncryptionServiceImpl passwordEncryptionService;
+	private EncryptionService passwordEncryptionService;
 
 	@Override
 	public User registerNewUser(User user) {
