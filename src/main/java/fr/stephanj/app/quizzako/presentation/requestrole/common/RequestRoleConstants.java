@@ -10,5 +10,5 @@ public class RequestRoleConstants {
 	public static final String SHOW_REQUESTS_URL = AdminConstants.ROLE_ADMIN_URL + "/requests";
 	
 	//Pages
-	public static final String SHOW_REQUESTS_PAGE = AdminConstants.ADMIN_PANEL_PAGE + "/role/show_requests";
+	public static final String SHOW_REQUESTS_PAGE = AdminConstants.ADMIN_ROOT_PAGE + "/role/show_requests";
 }
