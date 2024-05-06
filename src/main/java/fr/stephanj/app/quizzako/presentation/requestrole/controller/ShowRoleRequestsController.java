@@ -31,7 +31,7 @@ public class ShowRoleRequestsController {
 
 		if (requests == null || requests.isEmpty()) {
 			redirectAttr.addFlashAttribute(FLASH_MESSAGE, "No pending role requests");
-			return "redirect:" + AdminConstants.ADMIN_PANEL_URL;
+			return "redirect:" + AdminConstants.ADMIN_HOME_URL;
 		}
 
 		model.addAttribute(REQUESTS_LIST_ATTR, requests);
