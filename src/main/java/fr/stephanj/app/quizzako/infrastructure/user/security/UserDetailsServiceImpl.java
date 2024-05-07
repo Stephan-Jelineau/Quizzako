@@ -6,12 +6,11 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
+import fr.stephanj.app.quizzako.application.user.outbound.UserRepository;
 import fr.stephanj.app.quizzako.infrastructure.user.entity.UserEntity;
-import fr.stephanj.app.quizzako.infrastructure.user.persistence.UserRepository;
+import fr.stephanj.app.quizzako.infrastructure.user.mapper.UserEntityMapper;
 
-@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
@@ -19,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		UserEntity user = new UserEntity(userRepository.findByEmail(email));
+		UserEntity user = UserEntityMapper.toEntity(userRepository.getUserByEmail(email));
 		UserBuilder builder = User.builder().username(email).password(user.getPassword())
 				.roles(user.getRole().toString());
 		return builder.build();

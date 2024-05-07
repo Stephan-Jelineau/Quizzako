@@ -5,15 +5,21 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import fr.stephanj.app.quizzako.application.user.service.UserService;
-import fr.stephanj.app.quizzako.domain.user.model.Role;
-import fr.stephanj.app.quizzako.domain.user.model.User;
+import fr.stephanj.app.quizzako.application.user.outbound.EncryptionService;
+import fr.stephanj.app.quizzako.application.user.outbound.UserRepository;
+import fr.stephanj.app.quizzako.domain.Role;
+import fr.stephanj.app.quizzako.domain.User;
 
 @Component
 public class OnStartup implements ApplicationRunner {
 
+	private static final String ADMIN_EMAIL = "admin@admin.fr";
+
 	@Autowired
-	UserService service;
+	UserRepository userRepository;
+
+	@Autowired
+	EncryptionService encryptionService;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -21,10 +27,10 @@ public class OnStartup implements ApplicationRunner {
 	}
 
 	private void createAdminUser() {
-		User user = new User("admin", "admin", "admin@admin.fr", "admin", Role.ADMIN);
-		if(service.existsByEmail(user.getEmail()))
+		if (userRepository.existsByEmail(ADMIN_EMAIL))
 			return;
-		service.registerNewUser(user);
+		User user = new User("admin", "admin", ADMIN_EMAIL, encryptionService.encode("admin"), Role.ADMIN);
+		userRepository.registerNewUser(user);
 	}
 
 }

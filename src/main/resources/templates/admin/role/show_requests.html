@@ -17,11 +17,16 @@
 			<tr th:each="request: ${requests}">
 				<td th:text="${request.id}"></td>
 				<td th:text="${request.isActive}"></td>
-				<td th:text="${request.user.shortDisplay()}"></td>
+				<td th:text="${request.user}"></td>
 				<td th:text="${request.openDate}"></td>
 				<td th:text="${request.closeDate}"></td>
-				<td ><a th:if="${request.isActive == true}" href="#" th:href="@{/admin/role/request/grant/{requestId}(requestId=${request.id})}"
-						role="button" class="btn btn-primary">Grant</a></td>
+				<td>
+					<form th:if="${request.isActive == true}" th:action="@{/admin/role/requests}" method="post"
+						th:object="${grantRole}">
+						<input type="hidden" name="idRoleRequest" th:value="${request.id}">
+						<button type="submit" class="btn btn-primary">Grant</button>
+					</form>
+				</td>
 			</tr>
 		</tbody>
 	</table>

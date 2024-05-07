@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fr.stephanj.app.quizzako.application.user.usecase.UserSignUpUseCase;
+import fr.stephanj.app.quizzako.application.user.UserSignUpUseCase;
 import fr.stephanj.app.quizzako.presentation.HomeConstants;
-import fr.stephanj.app.quizzako.presentation.user.controller.common.UserConstants;
+import fr.stephanj.app.quizzako.presentation.user.common.UserConstants;
 import fr.stephanj.app.quizzako.presentation.user.request.CreateUserRequest;
 import fr.stephanj.app.quizzako.presentation.user.response.BasicUserFullNameResponse;
 import jakarta.servlet.http.HttpServletRequest;

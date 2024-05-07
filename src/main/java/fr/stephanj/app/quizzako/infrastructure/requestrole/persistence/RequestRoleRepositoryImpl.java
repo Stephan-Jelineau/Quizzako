@@ -1,66 +1,52 @@
 package fr.stephanj.app.quizzako.infrastructure.requestrole.persistence;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.stephanj.app.quizzako.application.requestrole.exception.RequestRoleAlreadyExistsForUser;
-import fr.stephanj.app.quizzako.application.requestrole.exception.RequestRoleNotFoundException;
-import fr.stephanj.app.quizzako.application.requestrole.mapper.RequestRoleMapper;
-import fr.stephanj.app.quizzako.domain.requestrole.model.RequestRole;
-import fr.stephanj.app.quizzako.domain.user.model.User;
+import fr.stephanj.app.quizzako.application.requestrole.outbound.RequestRoleRepository;
+import fr.stephanj.app.quizzako.domain.RequestRole;
+import fr.stephanj.app.quizzako.domain.exception.requestrole.RequestRoleAlreadyExistsForUser;
+import fr.stephanj.app.quizzako.domain.exception.requestrole.RequestRoleNotFoundException;
 import fr.stephanj.app.quizzako.infrastructure.requestrole.entity.RequestRoleEntity;
-import fr.stephanj.app.quizzako.infrastructure.user.entity.UserEntity;
-import fr.stephanj.app.quizzako.infrastructure.user.persistence.UserRepository;
+import fr.stephanj.app.quizzako.infrastructure.requestrole.mapper.RequestRoleEntityMapper;
 
 @Transactional
-@Repository
 public class RequestRoleRepositoryImpl implements RequestRoleRepository {
 
 	@Autowired
 	JpaRequestRoleRepository jpaRequestRepo;
 
-	@Autowired
-	UserRepository userRepo;
-
 	@Override
-	public void createRequestRole(RequestRole requestRole) {
-		Long userId = requestRole.getUser().getId();
-		if (jpaRequestRepo.existsByUserIdAndIsActiveTrue(userId))
+	public void saveRequestRole(RequestRole requestRole) {
+		if (isExistingAndIsActiveFor(requestRole.getUser().getId()))
 			throw new RequestRoleAlreadyExistsForUser(
 					"A request is already active for your account, waiting for acceptance");
-
-		User user = userRepo.findById(userId);
-		RequestRoleEntity entity = new RequestRoleEntity(requestRole, new UserEntity(user));
-		jpaRequestRepo.save(entity);
+		jpaRequestRepo.save(RequestRoleEntityMapper.toEntity(requestRole));
 	}
 
 	@Override
-	public List<RequestRole> findAllRequest() {
-		List<RequestRoleEntity> requests = jpaRequestRepo.findAll();
-		if (requests.isEmpty())
-			return null;
-		return requests.stream().map(r -> RequestRoleMapper.toDomainRequestRole(r)).toList();
+	public List<RequestRole> getAllRequest() {
+		return jpaRequestRepo.findAll().stream().map(RequestRoleEntityMapper::toDomain).collect(Collectors.toList());
 	}
 
 	@Override
-	public RequestRole findById(Long id) {
-		RequestRoleEntity entity = doFindById(id);
-		return RequestRoleMapper.toDomainRequestRole(entity);
-	}
-
-	private RequestRoleEntity doFindById(Long id) {
+	public RequestRole getById(Long id) {
 		RequestRoleEntity entity = jpaRequestRepo.findById(id).orElseThrow(
 				() -> new RequestRoleNotFoundException("The role request with id [" + id + "] was not found"));
-		return entity;
+		return RequestRoleEntityMapper.toDomain(entity);
 	}
 
 	@Override
-	public void update(RequestRole requestRole) {
-		RequestRoleEntity entity = new RequestRoleEntity(requestRole, new UserEntity(requestRole.getUser()));
-		jpaRequestRepo.save(entity);
+	public void updateRequest(RequestRole requestRole) {
+		jpaRequestRepo.save(RequestRoleEntityMapper.toEntity(requestRole));
+	}
+
+	@Override
+	public boolean isExistingAndIsActiveFor(Long userId) {
+		return jpaRequestRepo.existsByUserIdAndIsActiveTrue(userId);
 	}
 
 }
