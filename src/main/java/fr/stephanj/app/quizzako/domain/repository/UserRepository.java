@@ -1,4 +1,4 @@
-package fr.stephanj.app.quizzako.application.user.outbound;
+package fr.stephanj.app.quizzako.domain.repository;
 
 import fr.stephanj.app.quizzako.domain.User;
 import fr.stephanj.app.quizzako.domain.exception.user.UserAlreadyExistsException;

@@ -1,10 +1,15 @@
 package fr.stephanj.app.quizzako.infrastructure.user.entity;
 
+import java.util.List;
+
+import fr.stephanj.app.quizzako.infrastructure.quiz.entity.QuizEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -33,6 +38,9 @@ public class UserEntity {
 
 	@NotBlank
 	private String role;
+	
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QuizEntity> quizzes;
 
 	public UserEntity() {
 
@@ -96,4 +104,11 @@ public class UserEntity {
 		return id;
 	}
 
+	public List<QuizEntity> getQuizzes() {
+		return quizzes;
+	}
+
+	public void setQuizzes(List<QuizEntity> quizzes) {
+        this.quizzes = quizzes;
+    }
 }

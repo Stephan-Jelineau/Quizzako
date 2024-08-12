@@ -5,10 +5,10 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import fr.stephanj.app.quizzako.application.user.outbound.EncryptionService;
-import fr.stephanj.app.quizzako.application.user.outbound.UserRepository;
+import fr.stephanj.app.quizzako.application.user.service.EncryptionService;
 import fr.stephanj.app.quizzako.domain.Role;
 import fr.stephanj.app.quizzako.domain.User;
+import fr.stephanj.app.quizzako.domain.repository.UserRepository;
 
 @Component
 public class OnStartup implements ApplicationRunner {

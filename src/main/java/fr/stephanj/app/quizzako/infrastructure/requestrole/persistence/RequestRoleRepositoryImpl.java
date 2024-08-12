@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.stephanj.app.quizzako.application.requestrole.outbound.RequestRoleRepository;
 import fr.stephanj.app.quizzako.domain.RequestRole;
 import fr.stephanj.app.quizzako.domain.exception.requestrole.RequestRoleAlreadyExistsForUser;
 import fr.stephanj.app.quizzako.domain.exception.requestrole.RequestRoleNotFoundException;
+import fr.stephanj.app.quizzako.domain.repository.RequestRoleRepository;
 import fr.stephanj.app.quizzako.infrastructure.requestrole.entity.RequestRoleEntity;
 import fr.stephanj.app.quizzako.infrastructure.requestrole.mapper.RequestRoleEntityMapper;
 

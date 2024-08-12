@@ -3,9 +3,9 @@ package fr.stephanj.app.quizzako.application.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import fr.stephanj.app.quizzako.application.user.outbound.AutoLoginService;
-import fr.stephanj.app.quizzako.application.user.outbound.UserRepository;
+import fr.stephanj.app.quizzako.application.user.service.AutoLoginService;
 import fr.stephanj.app.quizzako.domain.User;
+import fr.stephanj.app.quizzako.domain.repository.UserRepository;
 import fr.stephanj.app.quizzako.presentation.user.request.ViewAndUpdateUserRequest;
 import fr.stephanj.app.quizzako.presentation.user.response.BasicUserFullNameResponse;
 import jakarta.servlet.http.HttpServletRequest;

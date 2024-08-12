@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Component;
 
-import fr.stephanj.app.quizzako.application.user.outbound.UserRepository;
+import fr.stephanj.app.quizzako.domain.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Component

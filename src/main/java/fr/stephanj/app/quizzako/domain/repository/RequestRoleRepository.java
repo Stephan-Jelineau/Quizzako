@@ -1,4 +1,4 @@
-package fr.stephanj.app.quizzako.application.requestrole.outbound;
+package fr.stephanj.app.quizzako.domain.repository;
 
 import java.util.List;
 

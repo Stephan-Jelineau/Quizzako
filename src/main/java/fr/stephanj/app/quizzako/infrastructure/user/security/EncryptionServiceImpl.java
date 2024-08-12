@@ -3,7 +3,7 @@ package fr.stephanj.app.quizzako.infrastructure.user.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import fr.stephanj.app.quizzako.application.user.outbound.EncryptionService;
+import fr.stephanj.app.quizzako.application.user.service.EncryptionService;
 
 public class EncryptionServiceImpl implements EncryptionService {
 

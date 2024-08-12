@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import fr.stephanj.app.quizzako.application.user.outbound.UserRepository;
+import fr.stephanj.app.quizzako.domain.repository.UserRepository;
 import fr.stephanj.app.quizzako.infrastructure.user.entity.UserEntity;
 import fr.stephanj.app.quizzako.infrastructure.user.mapper.UserEntityMapper;
 

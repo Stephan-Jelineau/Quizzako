@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import fr.stephanj.app.quizzako.application.requestrole.outbound.RequestRoleRepository;
 import fr.stephanj.app.quizzako.domain.RequestRole;
+import fr.stephanj.app.quizzako.domain.repository.RequestRoleRepository;
 import fr.stephanj.app.quizzako.presentation.requestrole.response.ShowRoleRequestsResponse;
 
 @Component

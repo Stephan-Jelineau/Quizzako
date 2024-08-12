@@ -8,9 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import fr.stephanj.app.quizzako.application.user.outbound.UserRepository;
 import fr.stephanj.app.quizzako.domain.Role;
 import fr.stephanj.app.quizzako.domain.User;
+import fr.stephanj.app.quizzako.domain.repository.UserRepository;
 import fr.stephanj.app.quizzako.presentation.error.common.ErrorConstants;
 import fr.stephanj.app.quizzako.presentation.error.response.BasicErrorMessageResponse;
 import fr.stephanj.app.quizzako.presentation.user.response.BasicUserFullNameResponse;

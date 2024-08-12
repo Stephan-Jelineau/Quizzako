@@ -1,4 +1,4 @@
-package fr.stephanj.app.quizzako.application.user.outbound;
+package fr.stephanj.app.quizzako.application.user.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

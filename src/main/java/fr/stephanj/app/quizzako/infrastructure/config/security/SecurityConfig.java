@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,6 +27,8 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import fr.stephanj.app.quizzako.domain.Role;
 import fr.stephanj.app.quizzako.presentation.HomeConstants;
 import fr.stephanj.app.quizzako.presentation.admin.controller.common.AdminConstants;
+import fr.stephanj.app.quizzako.presentation.category.common.CategoryConstants;
+import fr.stephanj.app.quizzako.presentation.quiz.common.QuizConstants;
 import fr.stephanj.app.quizzako.presentation.requestrole.common.RequestRoleConstants;
 import fr.stephanj.app.quizzako.presentation.user.common.UserConstants;
 
@@ -36,6 +40,11 @@ public class SecurityConfig {
 	SecurityContextRepository securityContextRepository() {
 		return new DelegatingSecurityContextRepository(new RequestAttributeSecurityContextRepository(),
 				new HttpSessionSecurityContextRepository());
+	}
+
+	@Bean
+	WebSecurityCustomizer webSecurityCustomizer() throws Exception {
+		return (WebSecurity web) -> web.ignoring().requestMatchers("/css/**");
 	}
 
 	@Bean
@@ -53,6 +62,8 @@ public class SecurityConfig {
 			auth.requestMatchers(RequestRoleConstants.ROLE_URL + "/**")
 					.access(SecurityConfig::notAdminAndAuthenticated);
 			auth.requestMatchers(AdminConstants.ADMIN_HOME_URL + "/**").hasRole(Role.ADMIN.toString());
+			auth.requestMatchers(QuizConstants.QUIZZES_URL).permitAll();
+			auth.requestMatchers(CategoryConstants.CATEGORIES_URL).permitAll();
 			auth.requestMatchers(HomeConstants.HOME_URL).permitAll();
 			auth.anyRequest().denyAll();
 		});

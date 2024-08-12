@@ -24,21 +24,21 @@ public class RequestRoleEntity {
 	@NotNull
 	@OneToOne(cascade = CascadeType.REMOVE, optional = false)
 	@JoinColumn(name = "user_id")
-	UserEntity user;
+	private UserEntity user;
 
 	@NotBlank
 	@Column(name = "role_resquested")
-	String roleResquested;
+	private String roleResquested;
 
 	@Column(name = "is_active")
-	boolean isActive;
+	private boolean isActive;
 
 	@NotNull
 	@Column(name = "open_date")
-	String openDate;
+	private String openDate;
 
 	@Column(name = "close_date")
-	String closeDate;
+	private String closeDate;
 
 	public RequestRoleEntity() {
 

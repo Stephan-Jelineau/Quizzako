@@ -3,10 +3,10 @@ package fr.stephanj.app.quizzako.infrastructure.user.persistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.stephanj.app.quizzako.application.user.outbound.UserRepository;
 import fr.stephanj.app.quizzako.domain.User;
 import fr.stephanj.app.quizzako.domain.exception.user.UserAlreadyExistsException;
 import fr.stephanj.app.quizzako.domain.exception.user.UserNotFoundException;
+import fr.stephanj.app.quizzako.domain.repository.UserRepository;
 import fr.stephanj.app.quizzako.infrastructure.user.entity.UserEntity;
 import fr.stephanj.app.quizzako.infrastructure.user.mapper.UserEntityMapper;
 

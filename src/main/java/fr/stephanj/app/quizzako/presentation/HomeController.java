@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import fr.stephanj.app.quizzako.application.user.outbound.UserRepository;
 import fr.stephanj.app.quizzako.domain.User;
+import fr.stephanj.app.quizzako.domain.repository.UserRepository;
 import fr.stephanj.app.quizzako.presentation.user.response.BasicUserFullNameResponse;
 
 @Controller
