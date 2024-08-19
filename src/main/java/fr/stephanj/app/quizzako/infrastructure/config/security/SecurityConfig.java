@@ -63,6 +63,8 @@ public class SecurityConfig {
 					.access(SecurityConfig::notAdminAndAuthenticated);
 			auth.requestMatchers(AdminConstants.ADMIN_HOME_URL + "/**").hasRole(Role.ADMIN.toString());
 			auth.requestMatchers(QuizConstants.QUIZZES_URL).permitAll();
+			auth.requestMatchers(QuizConstants.QUIZ_URL).permitAll();
+			auth.requestMatchers(QuizConstants.SUBMIT_QUIZ_URL).permitAll();
 			auth.requestMatchers(CategoryConstants.CATEGORIES_URL).permitAll();
 			auth.requestMatchers(HomeConstants.HOME_URL).permitAll();
 			auth.anyRequest().denyAll();

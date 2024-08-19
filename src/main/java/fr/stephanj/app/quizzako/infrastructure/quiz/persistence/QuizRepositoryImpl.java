@@ -1,6 +1,7 @@
 package fr.stephanj.app.quizzako.infrastructure.quiz.persistence;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,6 +36,14 @@ public class QuizRepositoryImpl implements QuizRepository {
 		if (!jpaQuizRepo.existsById(id))
 			throw new QuizNotFoundException("The Quiz with id " + id + " was not found");
 		jpaQuizRepo.deleteById(id);
+	}
+
+	@Override
+	public Quiz getById(Long id) {
+		Optional<QuizEntity> quizEntity = jpaQuizRepo.findById(id);
+		if (quizEntity.isEmpty())
+			throw new QuizNotFoundException("The Quiz with id " + id + " was not found");
+		return QuizEntityMapper.toDomain(quizEntity.get());
 	}
 
 }

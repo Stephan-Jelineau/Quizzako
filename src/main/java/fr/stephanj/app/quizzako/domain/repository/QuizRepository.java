@@ -10,4 +10,6 @@ public interface QuizRepository {
 	void saveQuiz(Quiz quiz);
 
 	void deleteQuizById(Long id);
+
+	Quiz getById(Long id);
 }
