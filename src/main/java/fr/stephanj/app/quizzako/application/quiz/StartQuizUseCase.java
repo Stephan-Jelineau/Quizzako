@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import fr.stephanj.app.quizzako.domain.Question;
 import fr.stephanj.app.quizzako.domain.Quiz;
 import fr.stephanj.app.quizzako.domain.repository.QuizRepository;
-import fr.stephanj.app.quizzako.presentation.quiz.request.QuestionFormRequest;
+import fr.stephanj.app.quizzako.presentation.quiz.request.QuestionAnswersFormRequest;
 import fr.stephanj.app.quizzako.presentation.quiz.request.QuizFormRequest;
 
 @Component
@@ -26,10 +26,10 @@ public class StartQuizUseCase {
 		form.setName(quiz.getName());
 		form.setCategoryName(quiz.getCategory() != null ? quiz.getCategory().getName() : "No category");
 
-		List<QuestionFormRequest> questionList = new ArrayList<>();
+		List<QuestionAnswersFormRequest> questionList = new ArrayList<>();
 
 		for (Question question : quiz.getQuestions()) {
-			QuestionFormRequest questionForm = new QuestionFormRequest();
+			QuestionAnswersFormRequest questionForm = new QuestionAnswersFormRequest();
 			questionForm.setAnswers(question.getAnswers().values().stream().toList());
 			questionForm.setId(question.getId());
 			questionForm.setQuestion(question.getQuestion());
@@ -39,5 +39,9 @@ public class StartQuizUseCase {
 		form.setQuestions(questionList);
 
 		return form;
+	}
+
+	public boolean isQuizPublic(Long id) {
+		return !quizRepo.isOwnerDefined(id);
 	}
 }

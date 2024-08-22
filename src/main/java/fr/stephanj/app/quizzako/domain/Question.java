@@ -47,8 +47,8 @@ public class Question {
 			throw new IllegalArgumentException("Missing \"" + GOOD_ANSWER + "\" key in answer Map");
 	}
 
-	public String getQuestion() {
-		return question;
+	public String getGoodAnswerValue() {
+		return answers.get(GOOD_ANSWER);
 	}
 
 	public void updateQuestion(String question) {
@@ -56,15 +56,19 @@ public class Question {
 		this.question = question;
 	}
 
-	public Map<String, String> getAnswers() {
-		return Collections.unmodifiableMap(answers);
-	}
-
 	public void updateAnswers(Map<String, String> answers) {
 		validateAnswers(answers);
 		this.answers = answers;
 	}
+	
+	public String getQuestion() {
+		return question;
+	}
 
+	public Map<String, String> getAnswers() {
+		return Collections.unmodifiableMap(answers);
+	}
+	
 	public Long getId() {
 		return id;
 	}

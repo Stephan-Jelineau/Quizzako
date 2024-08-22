@@ -30,6 +30,7 @@ import fr.stephanj.app.quizzako.presentation.admin.controller.common.AdminConsta
 import fr.stephanj.app.quizzako.presentation.category.common.CategoryConstants;
 import fr.stephanj.app.quizzako.presentation.quiz.common.QuizConstants;
 import fr.stephanj.app.quizzako.presentation.requestrole.common.RequestRoleConstants;
+import fr.stephanj.app.quizzako.presentation.score.common.ScoreConstants;
 import fr.stephanj.app.quizzako.presentation.user.common.UserConstants;
 
 @Configuration
@@ -66,6 +67,7 @@ public class SecurityConfig {
 			auth.requestMatchers(QuizConstants.QUIZ_URL).permitAll();
 			auth.requestMatchers(QuizConstants.SUBMIT_QUIZ_URL).permitAll();
 			auth.requestMatchers(CategoryConstants.CATEGORIES_URL).permitAll();
+			auth.requestMatchers(ScoreConstants.SCORE_QUIZ_URL).permitAll();
 			auth.requestMatchers(HomeConstants.HOME_URL).permitAll();
 			auth.anyRequest().denyAll();
 		});

@@ -46,4 +46,12 @@ public class QuizRepositoryImpl implements QuizRepository {
 		return QuizEntityMapper.toDomain(quizEntity.get());
 	}
 
+	@Override
+	public boolean isOwnerDefined(Long id) {
+		Optional<QuizEntity> quizEntity = jpaQuizRepo.findById(id);
+		if (quizEntity.isEmpty())
+			throw new QuizNotFoundException("The Quiz with id " + id + " was not found");
+		return quizEntity.get().getOwner() != null;
+	}
+
 }

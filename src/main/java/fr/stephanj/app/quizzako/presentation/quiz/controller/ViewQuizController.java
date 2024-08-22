@@ -15,12 +15,22 @@ import fr.stephanj.app.quizzako.presentation.quiz.request.QuizFormRequest;
 @Controller
 public class ViewQuizController {
 
+	private static final String NOT_ALLOWED_QUIZ = "Not allowed quiz";
+	private static final String FAIL_MESSAGE = "failMessage";
+
 	@Autowired
 	StartQuizUseCase useCase;
 
 	@GetMapping
 	public String startQuiz(@RequestParam(value = "id", required = true) Long id, Model model) {
 
+		boolean isQuizPublic = useCase.isQuizPublic(id);
+		
+		if (!isQuizPublic) {
+			model.addAttribute(FAIL_MESSAGE, NOT_ALLOWED_QUIZ);
+			return "redirect:" + QuizConstants.QUIZZES_URL;
+		}
+		
 		if (!model.containsAttribute(QuizConstants.QUIZ_FORM)) {
 			QuizFormRequest quiz = useCase.getQuizSelected(id);
 			model.addAttribute(QuizConstants.QUIZ_FORM, quiz);

@@ -19,7 +19,7 @@ public class QuizFormRequest {
 
 	@NotEmpty
 	@Valid
-	private List<@Valid QuestionFormRequest> questions;
+	private List<@Valid QuestionAnswersFormRequest> questions;
 	
 	public Long getId() {
 		return id;
@@ -45,11 +45,11 @@ public class QuizFormRequest {
 		this.categoryName = categoryName;
 	}
 
-	public List<QuestionFormRequest> getQuestions() {
+	public List<QuestionAnswersFormRequest> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(List<QuestionFormRequest> questions) {
+	public void setQuestions(List<QuestionAnswersFormRequest> questions) {
 		this.questions = questions;
 	}
 }

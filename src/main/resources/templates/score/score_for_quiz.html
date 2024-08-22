@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{common/skeleton :: base(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+
+<section class="container mt-5">
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<div class="card shadow-lg">
+				<div class="card-header">
+					<span th:text="${score.quizName}">Quiz Name</span>
+				</div>
+				<div class="card-body">
+					<p>Your score :</p>
+					<div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25"
+						aria-valuemin="0" aria-valuemax="100">
+						<div class="progress-bar" th:style="'width:' + ${score.score} + '%;'"
+							th:text="${score.score} + '%'"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+</html>

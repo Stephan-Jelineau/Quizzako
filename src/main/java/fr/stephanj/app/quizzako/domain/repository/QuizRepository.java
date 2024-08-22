@@ -12,4 +12,6 @@ public interface QuizRepository {
 	void deleteQuizById(Long id);
 
 	Quiz getById(Long id);
+
+	boolean isOwnerDefined(Long id);
 }

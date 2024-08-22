@@ -29,7 +29,6 @@
 				<li><a href="#" class="nav-link px-2" th:href="@{/quizzes}">Quizzes</a></li>
 				<li><a href="#" class="nav-link px-2" th:href="@{/account}">Account</a></li>
 				<li><a href="#" class="nav-link px-2" th:href="@{/progress}">Progress</a></li>
-				<li><a href="#" class="nav-link px-2" th:href="@{/about}">About</a></li>
 			</ul>
 
 			<div class="col-md-3 text-end">
@@ -45,6 +44,11 @@
 		<div class="alert alert-success alert-dismissible fade show mt-2" role="alert"
 			th:if="${successMessage != null}">
 			<strong th:text="${successMessage}"></strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		<div class="alert alert-danger alert-dismissible fade show mt-2" role="alert"
+			th:if="${failMessage != null}">
+			<strong th:text="${failMessage}"></strong>
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 		<main th:replace="${content}">

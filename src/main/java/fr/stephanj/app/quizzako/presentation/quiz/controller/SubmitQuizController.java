@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fr.stephanj.app.quizzako.presentation.HomeConstants;
 import fr.stephanj.app.quizzako.presentation.quiz.common.QuizConstants;
 import fr.stephanj.app.quizzako.presentation.quiz.request.QuizFormRequest;
+import fr.stephanj.app.quizzako.presentation.score.common.ScoreConstants;
 import jakarta.validation.Valid;
 
 @RequestMapping(QuizConstants.SUBMIT_QUIZ_URL)
@@ -28,7 +28,10 @@ public class SubmitQuizController {
 			redirectAttributes.addFlashAttribute(QuizConstants.QUIZ_FORM, quiz);
 			return "redirect:" + QuizConstants.QUIZ_URL;
 		}
-		return "redirect:" + HomeConstants.HOME_URL;
+		
+		redirectAttributes.addFlashAttribute(QuizConstants.QUIZ_FORM, quiz);
+
+		return "redirect:" + ScoreConstants.SCORE_QUIZ_URL;
 	}
 
 }
