@@ -54,4 +54,13 @@ public class QuizRepositoryImpl implements QuizRepository {
 		return quizEntity.get().getOwner() != null;
 	}
 
+	@Override
+	public List<Quiz> getQuizzesByOwnerId(Long userId) {
+		List<QuizEntity> quizzesEntity = jpaQuizRepo.findQuizzesByOwner(userId);
+		if (quizzesEntity.isEmpty())
+			return null;
+		List<Quiz> quizzes = quizzesEntity.stream().map(QuizEntityMapper::toDomain).toList();
+		return quizzes;
+	}
+
 }

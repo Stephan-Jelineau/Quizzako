@@ -8,8 +8,10 @@
 				<th scope="col">Id</th>
 				<th scope="col">Active</th>
 				<th scope="col">User</th>
+				<th scope="col">Role</th>
 				<th scope="col">Open date</th>
 				<th scope="col">Close date</th>
+				<th scope="col"></th>
 				<th scope="col"></th>
 			</tr>
 		</thead>
@@ -18,13 +20,19 @@
 				<td th:text="${request.id}"></td>
 				<td th:text="${request.isActive}"></td>
 				<td th:text="${request.user}"></td>
+				<td th:text="${request.roleRequested}"></td>
 				<td th:text="${request.openDate}"></td>
 				<td th:text="${request.closeDate}"></td>
 				<td>
 					<form th:if="${request.isActive == true}" th:action="@{/admin/role/requests}" method="post"
 						th:object="${grantRole}">
-						<input type="hidden" name="idRoleRequest" th:value="${request.id}">
-						<button type="submit" class="btn btn-primary">Grant</button>
+						<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+							<input type="hidden" name="idRoleRequest" th:value="${request.id}">
+							<button type="submit" class="btn btn-primary" name="type"
+								th:value="${T(fr.stephanj.app.quizzako.domain.RequestRole).GRANT_REQUEST}">Grant</button>
+							<button type="submit" class="btn btn-danger" name="type"
+								th:value="${T(fr.stephanj.app.quizzako.domain.RequestRole).DENY_REQUEST}">Deny</button>
+						</div>
 					</form>
 				</td>
 			</tr>

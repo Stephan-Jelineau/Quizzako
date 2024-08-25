@@ -12,4 +12,7 @@ public interface JpaQuizRepository extends JpaRepository<QuizEntity, Long> {
 	
 	@Query(value = "SELECT * FROM quiz ORDER BY RAND() LIMIT :numberOfQuizz", nativeQuery = true)
     List<QuizEntity> findRandomQuizzes(@Param("numberOfQuizz") int numberOfQuizz);
+	
+	@Query(value = "SELECT * FROM quiz WHERE owner_id = :id", nativeQuery = true)
+	List<QuizEntity> findQuizzesByOwner (@Param("id") Long id);
 }

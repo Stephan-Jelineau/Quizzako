@@ -18,4 +18,6 @@ public interface UserRepository {
 	User getUserById(Long userId) throws UserNotFoundException;
 
 	void updateUserWithNewMail(User user, String oldEmail) throws UserAlreadyExistsException;
+
+	Long getUserIdByMail(String userMail);
 }

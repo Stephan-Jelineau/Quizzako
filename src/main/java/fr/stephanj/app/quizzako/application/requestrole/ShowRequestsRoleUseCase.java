@@ -23,7 +23,7 @@ public class ShowRequestsRoleUseCase {
 		List<ShowRoleRequestsResponse> dtos = new ArrayList<>();
 		requests.forEach(r -> {
 			ShowRoleRequestsResponse dto = new ShowRoleRequestsResponse(r.getId(), r.isActive(),
-					r.getUser().shortDisplay(), r.getOpenDate().toString(),
+					r.getUser().shortDisplay(), r.getRoleResquested().toString(),r.getOpenDate().toString(),
 					r.getCloseDate() == null ? null : r.getCloseDate().toString());
 			dtos.add(dto);
 		});

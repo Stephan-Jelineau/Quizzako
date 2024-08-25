@@ -4,13 +4,15 @@ public class ShowRoleRequestsResponse {
 	private Long id;
 	private boolean isActive;
 	private String user;
+	private String roleRequested;
 	private String openDate;
 	private String closeDate;
 
-	public ShowRoleRequestsResponse(Long id, boolean isActive, String user, String openDate, String closeDate) {
+	public ShowRoleRequestsResponse(Long id, boolean isActive, String user, String roleRequested, String openDate, String closeDate) {
 		this.id = id;
 		this.isActive = isActive;
 		this.user = user;
+		this.roleRequested = roleRequested;
 		this.openDate = openDate;
 		this.closeDate = closeDate;
 	}
@@ -33,5 +35,9 @@ public class ShowRoleRequestsResponse {
 
 	public String getCloseDate() {
 		return closeDate;
+	}
+
+	public String getRoleRequested() {
+		return roleRequested;
 	}
 }

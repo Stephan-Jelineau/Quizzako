@@ -20,15 +20,24 @@
 				<div class="col-md-auto text-start">
 					<p><b>
 							<div sec:authentication="name"></div></span>
-						</b></p>
+						</b>
+					</p>
 				</div>
 			</div>
-
 			<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
 				<li><a href="#" class="nav-link px-2 link-secondary" th:href="@{/}">Home</a></li>
-				<li><a href="#" class="nav-link px-2" th:href="@{/quizzes}">Quizzes</a></li>
-				<li><a href="#" class="nav-link px-2" th:href="@{/account}">Account</a></li>
-				<li><a href="#" class="nav-link px-2" th:href="@{/progress}">Progress</a></li>
+				<div sec:authorize="hasAnyRole('TEACHER','STUDENT')">
+					<li><a href="#" class="nav-link px-2" th:href="@{/dashboard}">Dashboard</a></li>
+				</div>
+				<div sec:authorize="hasRole('USER') or isAnonymous()">
+					<li><a href="#" class="nav-link px-2" th:href="@{/quizzes}">Quizzes</a></li>
+				</div>
+				<div sec:authorize="hasRole('USER')">
+					<li><a href="#" class="nav-link px-2" th:href="@{/progress}">Progress</a></li>
+				</div>
+				<div sec:authorize="isAuthenticated()">
+					<li><a href="#" class="nav-link px-2" th:href="@{/account}">Account</a></li>
+				</div>
 			</ul>
 
 			<div class="col-md-3 text-end">
@@ -46,8 +55,7 @@
 			<strong th:text="${successMessage}"></strong>
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
-		<div class="alert alert-danger alert-dismissible fade show mt-2" role="alert"
-			th:if="${failMessage != null}">
+		<div class="alert alert-danger alert-dismissible fade show mt-2" role="alert" th:if="${failMessage != null}">
 			<strong th:text="${failMessage}"></strong>
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>

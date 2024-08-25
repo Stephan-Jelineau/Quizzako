@@ -14,4 +14,6 @@ public interface QuizRepository {
 	Quiz getById(Long id);
 
 	boolean isOwnerDefined(Long id);
+
+	List<Quiz> getQuizzesByOwnerId(Long userId);
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{common/skeleton :: base(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+
+<section>
+	<div class="container-fluid">
+		<div class="row">
+			<main class="col-md-12 ms-sm-auto px-md-4">
+				<div
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+					<h1 class="h2">My Quizzes</h1>
+					<a class="btn btn-primary" href="#" role="button" th:href="@{/quiz/create}">Create New Quiz</a>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4" th:each="quiz : ${quizzes}">
+						<div class="card mb-4 shadow-sm">
+							<div class="card-body">
+								<h5 class="card-title" th:text="${quiz.name}"></h5>
+								<p class="card-text">
+									Number of Question: <span th:text="${quiz.numberOfQuestion}"></span>
+								</p>
+								<p class="card-text">
+									Category: <span th:text="${quiz.categoryName}"></span>
+								</p>
+								<p class="card-text">
+									Creation Date: <span th:text="${quiz.creationDate}"></span>
+								</p>
+								<a th:href="@{/quiz/detail/{id}(id=${quiz.id})}" class="btn btn-primary">Details</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+</section>
+
+</html>

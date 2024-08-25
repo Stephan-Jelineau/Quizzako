@@ -4,6 +4,8 @@ import java.util.Objects;
 
 public final class User {
 
+	public static final Role DEFAULT_ROLE = Role.USER;
+	
 	private Long id;
 	private String firstname;
 	private String name;

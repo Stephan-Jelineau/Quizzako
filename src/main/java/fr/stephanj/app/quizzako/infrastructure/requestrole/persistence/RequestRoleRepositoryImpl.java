@@ -41,7 +41,11 @@ public class RequestRoleRepositoryImpl implements RequestRoleRepository {
 
 	@Override
 	public void updateRequest(RequestRole requestRole) {
-		jpaRequestRepo.save(RequestRoleEntityMapper.toEntity(requestRole));
+		RequestRoleEntity entity = jpaRequestRepo.findById(requestRole.getId()).orElseThrow(
+				() -> new RequestRoleNotFoundException("The role request with id [" + requestRole.getId() + "] was not found"));
+		entity.setActive(requestRole.isActive());
+		entity.setCloseDate(requestRole.getCloseDate());
+		jpaRequestRepo.save(entity);
 	}
 
 	@Override

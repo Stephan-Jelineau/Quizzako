@@ -9,6 +9,9 @@ import fr.stephanj.app.quizzako.domain.exception.requestrole.RoleRequestedNotAll
 
 public final class RequestRole {
 
+	public static final String GRANT_REQUEST = "grant";
+	public static final String DENY_REQUEST = "deny";
+	
 	Long id;
 	User user;
 	Role roleResquested;
@@ -18,8 +21,8 @@ public final class RequestRole {
 
 	public RequestRole(User user, Role roleResquested) {
 		validateData(user, roleResquested);
-		validateNewRoleRequested(roleResquested);
 		this.user = user;
+		validateNewRoleRequested(roleResquested);
 		this.roleResquested = roleResquested;
 		isActive = true;
 		openDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -47,7 +50,7 @@ public final class RequestRole {
 
 	}
 
-	private void validateNewRoleRequested(Role roleResquested2) {
+	private void validateNewRoleRequested(Role roleResquested) {
 		if (!Role.isRequestableRole(roleResquested))
 			throw new RoleRequestedNotAllowedException("The requested role is not allowed to be assigned");
 		if (user.getRole().equals(roleResquested))

@@ -55,7 +55,11 @@ public class UserRepositoryImpl implements UserRepository {
 	public void updateUserWithoutNewMail(User user) throws UserNotFoundException {
 		if (!existsByEmail(user.getEmail()))
 			throw new UserNotFoundException("User not found, cannot update");
-		UserEntity entity = UserEntityMapper.toEntity(user);
+		UserEntity entity = jpaUserRepo.findById(user.getId())
+				.orElseThrow(() -> new UserNotFoundException("User not found by id"));
+		entity.setFirstname(user.getFirstname());
+		entity.setName(user.getName());
+		entity.setRole(user.getRole().toString());
 		jpaUserRepo.save(entity);
 	}
 
@@ -64,8 +68,20 @@ public class UserRepositoryImpl implements UserRepository {
 		String newEmail = user.getEmail();
 		if (!oldEmail.equals(newEmail) && existsByEmail(newEmail))
 			throw new UserAlreadyExistsException("The email " + newEmail + " is already associated to an account");
-		UserEntity entity = UserEntityMapper.toEntity(user);
+		UserEntity entity = jpaUserRepo.findById(user.getId())
+				.orElseThrow(() -> new UserNotFoundException("User not found by id"));
+		entity.setFirstname(user.getFirstname());
+		entity.setName(user.getName());
+		entity.setRole(user.getRole().toString());
+		entity.setEmail(newEmail);
 		jpaUserRepo.save(entity);
+	}
+
+	@Override
+	public Long getUserIdByMail(String userMail) {
+		Long id = jpaUserRepo.getIdByEmail(userMail)
+				.orElseThrow(() -> new UserNotFoundException("User not found by email"));
+		return id;
 	}
 
 }
