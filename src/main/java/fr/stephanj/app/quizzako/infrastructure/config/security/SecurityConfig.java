@@ -27,7 +27,6 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import fr.stephanj.app.quizzako.domain.Role;
 import fr.stephanj.app.quizzako.presentation.HomeConstants;
 import fr.stephanj.app.quizzako.presentation.admin.controller.common.AdminConstants;
-import fr.stephanj.app.quizzako.presentation.category.common.CategoryConstants;
 import fr.stephanj.app.quizzako.presentation.dashboard.common.DashboardConstants;
 import fr.stephanj.app.quizzako.presentation.quiz.common.QuizConstants;
 import fr.stephanj.app.quizzako.presentation.requestrole.common.RequestRoleConstants;
@@ -46,7 +45,7 @@ public class SecurityConfig {
 
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() throws Exception {
-		return (WebSecurity web) -> web.ignoring().requestMatchers("/css/**");
+		return (WebSecurity web) -> web.ignoring().requestMatchers("/css/**", "/js/**");
 	}
 
 	@Bean
@@ -64,13 +63,14 @@ public class SecurityConfig {
 			auth.requestMatchers(RequestRoleConstants.ROLE_URL + "/**")
 					.access(SecurityConfig::notAdminAndAuthenticated);
 			auth.requestMatchers(AdminConstants.ADMIN_HOME_URL + "/**").hasRole(Role.ADMIN.toString());
-			auth.requestMatchers(DashboardConstants.DASHBOARD_URL + "/**").hasAnyRole(Role.STUDENT.toString(),Role.TEACHER.toString());
+			auth.requestMatchers(DashboardConstants.DASHBOARD_URL + "/**").hasAnyRole(Role.STUDENT.toString(),
+					Role.TEACHER.toString());
 			auth.requestMatchers(QuizConstants.MY_QUIZZES_URL + "/**").hasRole(Role.TEACHER.toString());
 			auth.requestMatchers(QuizConstants.MY_COHORTS_URL + "/**").hasRole(Role.TEACHER.toString());
+			auth.requestMatchers(QuizConstants.UPDATE_MY_QUIZ_URL + "/**").hasRole(Role.TEACHER.toString());
 			auth.requestMatchers(QuizConstants.QUIZZES_URL).permitAll();
 			auth.requestMatchers(QuizConstants.QUIZ_URL).permitAll();
 			auth.requestMatchers(QuizConstants.SUBMIT_QUIZ_URL).permitAll();
-			auth.requestMatchers(CategoryConstants.CATEGORIES_URL).permitAll();
 			auth.requestMatchers(ScoreConstants.SCORE_QUIZ_URL).permitAll();
 			auth.requestMatchers(HomeConstants.HOME_URL).permitAll();
 			auth.anyRequest().denyAll();

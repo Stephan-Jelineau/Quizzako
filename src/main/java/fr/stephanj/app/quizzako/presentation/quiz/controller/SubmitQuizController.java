@@ -18,18 +18,18 @@ import jakarta.validation.Valid;
 public class SubmitQuizController {
 
 	@PostMapping
-	public String submitQuiz(@Valid @ModelAttribute(QuizConstants.QUIZ_FORM) QuizFormRequest quiz,
+	public String submitQuiz(@Valid @ModelAttribute(QuizConstants.QUIZ_ATTR) QuizFormRequest quiz,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
 		if (bindingResult.hasErrors()) {
 			redirectAttributes.addAttribute("id", quiz.getId());
 			redirectAttributes.addFlashAttribute(
-					"org.springframework.validation.BindingResult." + QuizConstants.QUIZ_FORM, bindingResult);
-			redirectAttributes.addFlashAttribute(QuizConstants.QUIZ_FORM, quiz);
+					"org.springframework.validation.BindingResult." + QuizConstants.QUIZ_ATTR, bindingResult);
+			redirectAttributes.addFlashAttribute(QuizConstants.QUIZ_ATTR, quiz);
 			return "redirect:" + QuizConstants.QUIZ_URL;
 		}
 		
-		redirectAttributes.addFlashAttribute(QuizConstants.QUIZ_FORM, quiz);
+		redirectAttributes.addFlashAttribute(QuizConstants.QUIZ_ATTR, quiz);
 
 		return "redirect:" + ScoreConstants.SCORE_QUIZ_URL;
 	}

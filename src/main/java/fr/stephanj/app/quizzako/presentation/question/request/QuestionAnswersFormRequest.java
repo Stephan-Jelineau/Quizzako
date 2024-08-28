@@ -1,4 +1,4 @@
-package fr.stephanj.app.quizzako.presentation.quiz.request;
+package fr.stephanj.app.quizzako.presentation.question.request;
 
 import java.util.List;
 

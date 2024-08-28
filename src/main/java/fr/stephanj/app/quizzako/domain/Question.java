@@ -37,8 +37,8 @@ public class Question {
 	}
 
 	private void validateAnswers(Map<String, String> answers) {
-		if (answers.size() < 2)
-			throw new IllegalArgumentException("Question must have at least two answers");
+		if (answers.size() < 3)
+			throw new IllegalArgumentException("Question must have at least three answers");
 		validateGoodAnswer(answers);
 	}
 
@@ -60,7 +60,7 @@ public class Question {
 		validateAnswers(answers);
 		this.answers = answers;
 	}
-	
+
 	public String getQuestion() {
 		return question;
 	}
@@ -68,8 +68,9 @@ public class Question {
 	public Map<String, String> getAnswers() {
 		return Collections.unmodifiableMap(answers);
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
+
 }

@@ -1,7 +1,3 @@
-DROP DATABASE IF EXISTS quizzako;
-CREATE DATABASE quizzako;
-USE quizzako;
-
 CREATE TABLE user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(50) NOT NULL,

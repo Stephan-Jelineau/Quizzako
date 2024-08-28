@@ -23,11 +23,11 @@ public class ShowScoreQuizController {
 	@GetMapping
 	public String showScoreForQuiz(RedirectAttributes redirectAttributes, Model model) {
 
-		if (!model.containsAttribute(QuizConstants.QUIZ_FORM))
+		if (!model.containsAttribute(QuizConstants.QUIZ_ATTR))
 			return "redirect:" + QuizConstants.QUIZZES_URL;
 
 		ScoreQuizResponse res = useCase
-				.getScoreOfQuiz((QuizFormRequest) model.getAttribute(QuizConstants.QUIZ_FORM));
+				.getScoreOfQuiz((QuizFormRequest) model.getAttribute(QuizConstants.QUIZ_ATTR));
 		model.addAttribute(ScoreConstants.SCORE_ATTR, res);
 
 		return ScoreConstants.SCORE_QUIZ_PAGE;

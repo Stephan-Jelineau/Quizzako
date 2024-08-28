@@ -16,7 +16,7 @@ public class Quiz {
 
 	public Quiz(Long id, String name, User owner, LocalDate creationDate, List<Question> questions,
 			Category category) {
-		validateData(id, name, creationDate, questions);
+		validateData(id, name, owner, creationDate, questions);
 		this.id = id;
 		this.name = name;
 		this.owner = owner;
@@ -25,22 +25,24 @@ public class Quiz {
 		this.category = category;
 	}
 
-	public Quiz(String name, List<Question> questions, Category category) {
-		validateData(name, questions);
+	public Quiz(String name, User owner, List<Question> questions, Category category) {
+		validateData(name, owner, questions);
 		this.name = name;
+		this.owner = owner;
 		this.creationDate = LocalDate.now();
 		this.questions = questions;
 		this.category = category;
 	}
 
-	private void validateData(Long id, String name, LocalDate creationDate, List<Question> questions) {
+	private void validateData(Long id, String name, User owner, LocalDate creationDate, List<Question> questions) {
 		Objects.requireNonNull(id, "Questionnaire with null id not allowed");
-		validateData(name, questions);
+		validateData(name, owner,questions);
 		Objects.requireNonNull(creationDate, "Questionnaire with null creationDate not allowed");
 	}
 
-	private void validateData(String name, List<Question> questions) {
+	private void validateData(String name, User owner, List<Question> questions) {
 		Objects.requireNonNull(name, "Questionnaire with null name not allowed");
+		Objects.requireNonNull(owner, "Owner with null User not allowed");
 		validateQuestions(questions);
 	}
 

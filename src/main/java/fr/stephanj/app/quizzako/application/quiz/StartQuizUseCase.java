@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import fr.stephanj.app.quizzako.domain.Question;
 import fr.stephanj.app.quizzako.domain.Quiz;
 import fr.stephanj.app.quizzako.domain.repository.QuizRepository;
-import fr.stephanj.app.quizzako.presentation.quiz.request.QuestionAnswersFormRequest;
+import fr.stephanj.app.quizzako.presentation.question.request.QuestionAnswersFormRequest;
 import fr.stephanj.app.quizzako.presentation.quiz.request.QuizFormRequest;
 
 @Component
@@ -42,6 +42,6 @@ public class StartQuizUseCase {
 	}
 
 	public boolean isQuizPublic(Long id) {
-		return !quizRepo.isOwnerDefined(id);
+		return quizRepo.isOwnerAdmin(id);
 	}
 }

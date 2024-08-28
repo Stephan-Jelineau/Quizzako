@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import fr.stephanj.app.quizzako.domain.Question;
 import fr.stephanj.app.quizzako.domain.Score;
 import fr.stephanj.app.quizzako.domain.repository.QuestionRepository;
-import fr.stephanj.app.quizzako.presentation.quiz.request.QuestionAnswersFormRequest;
+import fr.stephanj.app.quizzako.presentation.question.request.QuestionAnswersFormRequest;
 import fr.stephanj.app.quizzako.presentation.quiz.request.QuizFormRequest;
 import fr.stephanj.app.quizzako.presentation.score.response.ScoreQuizResponse;
 
