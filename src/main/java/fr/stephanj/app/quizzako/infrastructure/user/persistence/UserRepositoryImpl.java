@@ -1,8 +1,11 @@
 package fr.stephanj.app.quizzako.infrastructure.user.persistence;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.stephanj.app.quizzako.domain.Role;
 import fr.stephanj.app.quizzako.domain.User;
 import fr.stephanj.app.quizzako.domain.exception.user.UserAlreadyExistsException;
 import fr.stephanj.app.quizzako.domain.exception.user.UserNotFoundException;
@@ -82,6 +85,13 @@ public class UserRepositoryImpl implements UserRepository {
 		Long id = jpaUserRepo.getIdByEmail(userMail)
 				.orElseThrow(() -> new UserNotFoundException("User not found by email"));
 		return id;
+	}
+
+	@Override
+	public List<User> getUsersByRole() {
+		List<UserEntity> entities = jpaUserRepo.findByRole(Role.STUDENT.toString())
+				.orElseThrow(() -> new UserNotFoundException("No student user found"));
+		return entities.stream().map(UserEntityMapper::toDomain).toList();
 	}
 
 }

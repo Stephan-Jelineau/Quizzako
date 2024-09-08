@@ -14,7 +14,7 @@ import fr.stephanj.app.quizzako.presentation.quiz.request.QuizFormRequest;
 
 @RequestMapping(QuizConstants.QUIZ_URL)
 @Controller
-public class ViewQuizController {
+public class StartQuizController {
 
 	private static final String NOT_ALLOWED_QUIZ = "Not allowed quiz";
 	private static final String FAIL_MESSAGE = "failMessage";

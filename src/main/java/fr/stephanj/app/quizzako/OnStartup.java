@@ -11,20 +11,22 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.stephanj.app.quizzako.application.user.service.EncryptionService;
+import fr.stephanj.app.quizzako.domain.Cohort;
 import fr.stephanj.app.quizzako.domain.Question;
 import fr.stephanj.app.quizzako.domain.Quiz;
 import fr.stephanj.app.quizzako.domain.Role;
 import fr.stephanj.app.quizzako.domain.User;
 import fr.stephanj.app.quizzako.domain.exception.quiz.QuizNotFoundException;
+import fr.stephanj.app.quizzako.domain.repository.CohortRepository;
 import fr.stephanj.app.quizzako.domain.repository.QuizRepository;
 import fr.stephanj.app.quizzako.domain.repository.UserRepository;
 
 @Component
+@Transactional
 public class OnStartup implements ApplicationRunner {
 
 	private static final String ADMIN_EMAIL = "admin@admin.fr";
 	private static final String TEACHER_EMAIL = "teacher@teacher.fr";
-	private static final String STUDENT_EMAIL = "student@student.fr";
 	private static final String USER_EMAIL = "user@user.fr";
 
 	private User adminUser;
@@ -37,19 +39,21 @@ public class OnStartup implements ApplicationRunner {
 	QuizRepository quizRepo;
 
 	@Autowired
+	CohortRepository cohortRepo;
+
+	@Autowired
 	EncryptionService encryptionService;
 
-	@Transactional
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		createAdminUser();
 		createTeacherUser();
-		createStudentUser();
+		createStudentsUser();
 		createBasicUser();
 		createQuizzes();
+		createCohorts();
 	}
 
-	@Transactional
 	private void createAdminUser() {
 		User user;
 		if (userRepository.existsByEmail(ADMIN_EMAIL)) {
@@ -61,7 +65,6 @@ public class OnStartup implements ApplicationRunner {
 		this.adminUser = user;
 	}
 
-	@Transactional
 	private void createTeacherUser() {
 		User user;
 		if (userRepository.existsByEmail(TEACHER_EMAIL)) {
@@ -74,15 +77,17 @@ public class OnStartup implements ApplicationRunner {
 		this.teacherUser = user;
 	}
 
-	@Transactional
-	private void createStudentUser() {
-		if (userRepository.existsByEmail(STUDENT_EMAIL))
-			return;
-		User user = new User("student", "student", STUDENT_EMAIL, encryptionService.encode("aaa"), Role.STUDENT);
-		userRepository.registerNewUser(user);
+	private void createStudentsUser() {
+		for (int i = 0; i < 4; i++) {
+			String email = "student" + i + "@student.fr";
+			if (!userRepository.existsByEmail(email)) {
+				User user = new User("student" + i, "student" + i, email, encryptionService.encode("aaa"),
+						Role.STUDENT);
+				userRepository.registerNewUser(user);
+			}
+		}
 	}
 
-	@Transactional
 	private void createBasicUser() {
 		if (userRepository.existsByEmail(USER_EMAIL))
 			return;
@@ -90,7 +95,6 @@ public class OnStartup implements ApplicationRunner {
 		userRepository.registerNewUser(user);
 	}
 
-	@Transactional
 	private void createQuizzes() {
 		try {
 			quizRepo.getNumberRequestedOfQuiz(12);
@@ -121,4 +125,19 @@ public class OnStartup implements ApplicationRunner {
 		}
 	}
 
+	private void createCohorts() {
+
+		List<Cohort> cohorts = cohortRepo.getCohortsByUserId(teacherUser.getId());
+
+		if (cohorts != null)
+			return;
+
+		List<Cohort> cohortsRegister = new ArrayList<>();
+
+		for (int i = 0; i <= 5; i++) {
+			cohortsRegister.add(new Cohort("Cohort n° " + i, teacherUser));
+		}
+
+		cohortsRegister.forEach(cohortRepo::saveCohort);
+	}
 }

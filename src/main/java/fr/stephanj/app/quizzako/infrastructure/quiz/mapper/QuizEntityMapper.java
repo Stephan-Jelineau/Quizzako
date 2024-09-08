@@ -13,7 +13,7 @@ public class QuizEntityMapper {
 
 	public static Quiz toDomain(QuizEntity entity) {
 		return new Quiz(entity.getId(), entity.getName(),
-				entity.getOwner() != null ? UserEntityMapper.toDomain(entity.getOwner()) : null,
+				UserEntityMapper.toDomain(entity.getOwner()),
 				entity.getCreationDate(), entity.getQuestions().stream().map(QuestionEntityMapper::toDomain).toList(),
 				entity.getCategory() != null ? CategoryEntityMapper.toDomain(entity.getCategory()) : null);
 	}

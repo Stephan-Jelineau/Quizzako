@@ -2,6 +2,7 @@ package fr.stephanj.app.quizzako.domain;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -15,31 +16,36 @@ public class Score {
 	private Quiz quiz;
 	private User user;
 	private BigDecimal score;
+	private LocalDate submissionDate;
 
-	public Score(Long id, Quiz quiz, User user, BigDecimal score) {
+	public Score(Long id, Quiz quiz, User user, BigDecimal score, LocalDate submissionDate) {
 		validateData(id, quiz, user, score);
+		Objects.requireNonNull(submissionDate, "Score with null submissionDate not allowed");
 		this.id = id;
 		this.quiz = quiz;
 		this.user = user;
 		this.score = score;
+		this.submissionDate = submissionDate;
 	}
 
-	public Score(Quiz quiz, User user) {
-		validateData(quiz, user);
+	public Score(Quiz quiz, User user, BigDecimal score) {
+		validateData(quiz, user, score);
 		this.quiz = quiz;
 		this.user = user;
+		this.score = score;
+		this.submissionDate = LocalDate.now();
 	}
 
 	private void validateData(Long id, Quiz quiz, User user, BigDecimal score) {
 		Objects.requireNonNull(id, "Score with null id not allowed");
-		Objects.requireNonNull(score, "Score with no value score is not allowed");
-		validateData(quiz, user);
+		validateData(quiz, user, score);
 
 	}
 
-	private void validateData(Quiz quiz, User user) {
+	private void validateData(Quiz quiz, User user, BigDecimal score) {
 		Objects.requireNonNull(quiz, "Score with null quiz is not allowed");
 		Objects.requireNonNull(user, "Score with null user is not allowed");
+		Objects.requireNonNull(score, "Score with no value score is not allowed");
 	}
 
 	public void updateScore(BigDecimal score) {
@@ -55,6 +61,12 @@ public class Score {
 
 	public static BigDecimal computeScore(List<Question> questions, Map<Long, String> answers) {
 		return computeScoreLogic(questions, answers);
+	}
+
+	public static BigDecimal computeParticipationPercentage(int numberOfQuiz, long numberOfParticipation) {
+		BigDecimal paticipationPercentage = BigDecimal.valueOf(numberOfQuiz)
+				.divide(BigDecimal.valueOf(numberOfParticipation), 2, RoundingMode.HALF_UP).scaleByPowerOfTen(2);
+		return paticipationPercentage;
 	}
 
 	private static BigDecimal computeScoreLogic(List<Question> questions, Map<Long, String> answers) {
@@ -91,5 +103,9 @@ public class Score {
 
 	public BigDecimal getScore() {
 		return score;
+	}
+
+	public LocalDate getSubmissionDate() {
+		return submissionDate;
 	}
 }

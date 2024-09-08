@@ -20,7 +20,7 @@ public class QuizFormRequest {
 
 	@NotEmpty
 	@Valid
-	private List<fr.stephanj.app.quizzako.presentation.question.request.QuestionAnswersFormRequest> questions;
+	private List<QuestionAnswersFormRequest> questions;
 	
 	public Long getId() {
 		return id;

@@ -27,6 +27,7 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import fr.stephanj.app.quizzako.domain.Role;
 import fr.stephanj.app.quizzako.presentation.HomeConstants;
 import fr.stephanj.app.quizzako.presentation.admin.controller.common.AdminConstants;
+import fr.stephanj.app.quizzako.presentation.cohort.common.CohortConstants;
 import fr.stephanj.app.quizzako.presentation.dashboard.common.DashboardConstants;
 import fr.stephanj.app.quizzako.presentation.quiz.common.QuizConstants;
 import fr.stephanj.app.quizzako.presentation.requestrole.common.RequestRoleConstants;
@@ -37,6 +38,7 @@ import fr.stephanj.app.quizzako.presentation.user.common.UserConstants;
 @EnableWebSecurity
 public class SecurityConfig {
 
+	private static final String ROLE_ANONYMOUS = "ROLE_ANONYMOUS";
 	@Bean
 	SecurityContextRepository securityContextRepository() {
 		return new DelegatingSecurityContextRepository(new RequestAttributeSecurityContextRepository(),
@@ -68,10 +70,14 @@ public class SecurityConfig {
 			auth.requestMatchers(QuizConstants.MY_QUIZZES_URL + "/**").hasRole(Role.TEACHER.toString());
 			auth.requestMatchers(QuizConstants.MY_COHORTS_URL + "/**").hasRole(Role.TEACHER.toString());
 			auth.requestMatchers(QuizConstants.UPDATE_MY_QUIZ_URL + "/**").hasRole(Role.TEACHER.toString());
-			auth.requestMatchers(QuizConstants.QUIZZES_URL).permitAll();
-			auth.requestMatchers(QuizConstants.QUIZ_URL).permitAll();
-			auth.requestMatchers(QuizConstants.SUBMIT_QUIZ_URL).permitAll();
-			auth.requestMatchers(ScoreConstants.SCORE_QUIZ_URL).permitAll();
+			auth.requestMatchers(CohortConstants.COHORT_MANAGE_URL + "/**").hasRole(Role.TEACHER.toString());
+			auth.requestMatchers(CohortConstants.COHORT_DETAIL_URL + "/**").hasRole(Role.TEACHER.toString());
+			auth.requestMatchers(CohortConstants.COHORT_UPDATE_URL + "/**").hasRole(Role.TEACHER.toString());
+			auth.requestMatchers(CohortConstants.COHORT_SCORES_URL + "/**").hasRole(Role.TEACHER.toString());
+			auth.requestMatchers(QuizConstants.QUIZZES_URL).access(SecurityConfig::onlyUserStudentAndAnonymous);
+			auth.requestMatchers(QuizConstants.QUIZ_URL).access(SecurityConfig::onlyUserStudentAndAnonymous);
+			auth.requestMatchers(QuizConstants.SUBMIT_QUIZ_URL).access(SecurityConfig::onlyUserStudentAndAnonymous);
+			auth.requestMatchers(ScoreConstants.SCORE_QUIZ_URL).access(SecurityConfig::onlyUserStudentAndAnonymous);
 			auth.requestMatchers(HomeConstants.HOME_URL).permitAll();
 			auth.anyRequest().denyAll();
 		});
@@ -110,5 +116,16 @@ public class SecurityConfig {
 		boolean notAdmin = !authorities.contains(adminRole);
 		boolean notAdminAndAuth = notAdmin && !authorities.isEmpty();
 		return new AuthorizationDecision(notAdminAndAuth);
+	}
+
+	private static AuthorizationDecision onlyUserStudentAndAnonymous(Supplier<Authentication> supplier,
+			RequestAuthorizationContext context) {
+		SimpleGrantedAuthority studentRole = new SimpleGrantedAuthority("ROLE_" + Role.STUDENT.toString());
+		SimpleGrantedAuthority userRole = new SimpleGrantedAuthority("ROLE_" + Role.USER.toString());
+		SimpleGrantedAuthority anonymous = new SimpleGrantedAuthority(ROLE_ANONYMOUS);
+		Collection<? extends GrantedAuthority> authorities = supplier.get().getAuthorities();
+		if (authorities.contains(studentRole) || authorities.contains(userRole) || authorities.contains(anonymous))
+			return new AuthorizationDecision(true);
+		return new AuthorizationDecision(false);
 	}
 }

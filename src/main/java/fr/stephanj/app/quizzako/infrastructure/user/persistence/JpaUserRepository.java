@@ -1,5 +1,6 @@
 package fr.stephanj.app.quizzako.infrastructure.user.persistence;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,4 +21,6 @@ public interface JpaUserRepository extends JpaRepository<UserEntity, Long> {
 
 	@Query("SELECT u.id FROM UserEntity u WHERE u.role = :role")
 	Long getIdByRole(@Param("role")String string);
+
+	Optional<List<UserEntity>> findByRole(String string);
 }

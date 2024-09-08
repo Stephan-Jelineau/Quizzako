@@ -79,4 +79,14 @@ public class QuizRepositoryImpl implements QuizRepository {
 		return QuizEntityMapper.toDomain(quizEntity);
 	}
 
+	@Override
+	public List<Quiz> getAssignedQuizzesByCohortId(Long id) {
+		List<QuizEntity> allQuizByCohortId = jpaQuizRepo.findAllQuizByCohortId(id);
+
+		if (!allQuizByCohortId.isEmpty())
+			return allQuizByCohortId.stream().map(QuizEntityMapper::toDomain).toList();
+
+		return null;
+	}
+
 }

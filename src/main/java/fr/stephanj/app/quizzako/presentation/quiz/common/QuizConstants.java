@@ -5,6 +5,7 @@ public class QuizConstants {
 	public static final String QUIZZES_URL = "/quizzes";
 	public static final String QUIZ_URL = "/quiz";
 	public static final String SUBMIT_QUIZ_URL = "/submitQuiz";
+	
 	public static final String MY_QUIZZES_URL = "/quizzes/manage";
 	public static final String MY_COHORTS_URL = "/cohorts/manage";
 	public static final String UPDATE_MY_QUIZ_URL = "/quiz/detail";

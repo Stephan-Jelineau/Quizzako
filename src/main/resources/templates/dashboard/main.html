@@ -6,11 +6,13 @@
 		<div class="text-left">
 			<div sec:authorize="hasRole('TEACHER')">
 				<p><a href="#" class="link-offset-3" th:href="@{/quizzes/manage}">My Quizzes</a></p>
-				<p><a href="#" class="link-offset-3" th:href="@{/cohorts/manage}">My Cohorts</a></p>
+				<p><a href="#" class="link-offset-3" th:href="@{/cohort/manage}">My Cohorts</a></p>
+				<p><a href="#" class="link-offset-3" th:href="@{/cohort/scores}">Cohorts Scores</a></p>
 			</div>
 			<div sec:authorize="hasRole('STUDENT')">
 				<p><a href="#" class="link-offset-3" th:href="@{/quizzes/assigned}">Assigned Quizzes</a></p>
 				<p><a href="#" class="link-offset-3" th:href="@{/teacher}">My Teacher</a></p>
+				<p><a href="#" class="link-offset-3" th:href="@{/cohort/view}">My Cohorts</a></p>
 			</div>
 		</div>
 	</div>
