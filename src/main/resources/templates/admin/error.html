@@ -1,0 +1,18 @@
+<html lang="en" th:replace="~{admin/common/skeleton :: admin(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+
+<section>
+	<div class="page-wrap d-flex flex-row align-items-center">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-12 text-center">
+					<span class="display-1 d-block mb-4 ">Something went wrong !</span>
+					<div class="mb-4 lead" th:text="${error.message}"></div>
+					<a href="#" class="btn btn-link" th:href="@{/admin}">Back to Home</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>
+
+</html>

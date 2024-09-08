@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{common/skeleton :: base(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+
+<section>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<h2 class="mb-4 text-center" th:text="${quiz.name}"></h2>
+				<p class="text-center" th:text="'Category: ' + ${quiz.categoryName}"></p>
+
+				<form method="post" th:action="@{/submitQuiz}" th:object="${quiz}">
+
+					<!-- Hidden fields for QuizFormRequest -->
+					<input type="hidden" th:field="*{id}">
+					<input type="hidden" th:field="*{name}">
+					<input type="hidden" th:field="*{categoryName}">
+
+					<!-- Iterating over questions -->
+					<div th:each="question, iterStat : ${quiz.questions}" class="mb-4">
+
+						<!-- Include hidden fields for QuestionFormRequest list -->
+						<input type="hidden" th:field="*{questions[__${iterStat.index}__].id}">
+						<input type="hidden" th:field="*{questions[__${iterStat.index}__].question}">
+						<input type="hidden" th:field="*{questions[__${iterStat.index}__].answers}">
+
+						<h5 th:text="${question.question}"></h5>
+
+						<!-- Show error field if present -->
+						<div th:with="errorPath='questions[' + ${iterStat.index} + '].selectedAnswer'">
+							<div class="alert alert-danger mt-1 p-1 fst-italic fw-lighter"
+								th:if="${#fields.hasErrors(errorPath)}" th:errors="*{__${errorPath}__}">
+							</div>
+						</div>
+
+						<!-- Binding the selected answer -->
+						<div class="form-check" th:each="answer, iterator: ${question.answers}">
+							<div th:with="concatId=${iterator.index + 1} + ${question.id}">
+								<!-- Include the selected answer -->
+								<input class="form-check-input" type="radio"
+									th:field="*{questions[__${iterStat.index}__].selectedAnswer}" th:value="${answer}"
+									th:id="${concatId}">
+								<label class="form-check-label" th:for="${concatId}" th:text="${answer}"></label>
+							</div>
+						</div>
+
+					</div>
+					<div class="text-center">
+						<button type="submit" class="btn btn-primary mt-4">Done</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{common/skeleton :: base(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+
+<section>
+	<div class="container-fluid">
+		<div class="row">
+			<main class="col-md-12 ms-sm-auto px-md-4">
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+					<h1 class="h2">Assigned Quizzes</h1>
+				</div>
+
+				<div th:if="${#lists.isEmpty(quizzes)}" class="alert alert-warning" role="alert">
+					No quiz assigned yet
+				</div>
+
+				<div th:unless="${#lists.isEmpty(quizzes)}" class="row">
+					<div class="col-md-4" th:each="quiz : ${quizzes}">
+						<div class="card mb-4 shadow-sm">
+							<div class="card-body">
+								<h5 class="card-title mb-3" th:text="${quiz.quizName}"></h5>
+								<p class="card-subtitle mb-1">
+									Number of Question: <span th:text="${quiz.numberOfQuestion}"></span>
+								</p>
+								<p class="card-text mb-1">
+									Assignment Date: <span th:text="${quiz.assignedDate}"></span>
+								</p>
+								<p class="card-text mb-1">
+									Last Score: <span
+										th:text="${#strings.isEmpty(quiz.score) ? 'Not started' : quiz.score}"></span>
+								</p>
+								<p class="card-text mb-3">
+									Cohort: <span th:text="${quiz.cohortName}"></span>
+								</p>
+								<a th:href="@{/quiz(id=${quiz.quizId})}" class="btn btn-primary">Start</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+</section>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{common/skeleton :: base(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+
+<section>
+	<div class="container">
+		<div class="row justify-content-center">
+		<div class="d-inline-flex justify-content-between mb-0 mt-2">
+			<h2 class="text-center mb-0" th:text="${quiz.name}"></h2>
+			<button type="button" class="btn btn-danger btn-sm">Delete</button>
+		</div>
+			<span class="mb-2 text-center" th:text="'Category : ' + ${quiz.categoryName}"></span>
+
+			<form method="post" th:action="@{/quiz/detail(id=${quiz.id})}" th:object="${quiz}">
+				<input type="hidden" th:field="*{name}">
+				<input type="hidden" th:field="*{categoryName}">
+
+				<div id="questions-container">
+
+					<div class="question" th:each="question, iterator : ${quiz.questions}">
+						<input type="hidden" th:field="*{questions[__${iterator.index}__].id}">
+						<div th:with="concatQuestionId=${iterator.index + 1} + ${question.id}">
+							<div th:with="fieldQuestionPath='questions['+__${iterator.index}__+']'">
+								<div class="border rounded p-4 mb-3">
+									<div class="d-flex justify-content-between mb-1 align-items-center">
+										<label for="${concatQuestionId}"
+											class="form-label mb-0">[[#{question.question}]]</label>
+										<button type="button" class="btn btn-danger btn-sm">✖</button>
+									</div>
+									<input type="text" class="form-control mb-3" id="${concatQuestionId}"
+										th:field="*{__${fieldQuestionPath}__.question}">
+									<div th:with="errorPath=__${fieldQuestionPath}__.question">
+										<div class="alert alert-danger mt-1 p-1 fst-italic fw-lighter"
+											th:if="${#fields.hasErrors(errorPath)}" th:errors="*{__${errorPath}__}">
+										</div>
+									</div>
+
+									<div class="answers-container">
+										<div class="answer" th:each="answerEntry : ${question.answers.entrySet()}">
+											<div
+												th:with="fieldAnswerPath=${fieldQuestionPath} + '.answers[' + ${answerEntry.key} + ']'">
+												<div th:with="concatAnswerId=${concatQuestionId} + ${answerEntry.key}">
+													<div class="d-flex justify-content-between mb-1 align-items-center">
+														<label for="${concatAnswerId}" class="form-label mb-0"
+															th:text="${answerEntry.key}"></label>
+														<button type="button" class="btn btn-danger btn-sm">✖</button>
+													</div>
+													<input type="text" class="form-control mb-3" id="${concatAnswerId}"
+														th:field="*{__${fieldAnswerPath}__}">
+													<div class="alert alert-danger mt-1 p-1 fst-italic fw-lighter"
+														th:if="${#fields.hasErrors(fieldAnswerPath)}"
+														th:errors="*{__${fieldAnswerPath}__}"></div>
+												</div>
+											</div>
+										</div>
+										<button type="button" class="btn btn-success btn-sm mt-2">Add Answer</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button type="button" class="btn btn-success btn-sm mt-4">Add Question</button>
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary mt-4">Update</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+
+
+</html>

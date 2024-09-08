@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{common/skeleton :: base(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+
+<section>
+	<h2 class="mb-2">Random Quizzes</h2>
+	
+	<div class=" d-md-flex justify-content-md-end">
+		<a class="btn btn-secondary mb-2" href="#" role="button">Categories</a>
+	</div>
+
+	<div th:if="${quizzes != null}">
+		<div class="row">
+			<div class="col-sm-6 mb-2" th:each="quiz : ${quizzes}">
+				<div class="card border-primary text-center">
+					<div class="card-body">
+						<h6 class="card-title" th:text="${quiz.name}"></h6>
+						<p class="card-text" th:text="${quiz.categoryName}"></p>
+						<a href="#" th:href="@{/quiz(id=${quiz.id})}" class="btn btn-primary">Start</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div th:if="${quizzes == null}">
+			<p>Unlucky ! No quiz found</p>
+		</div>
+	</div>
+</section>
+
+</html>

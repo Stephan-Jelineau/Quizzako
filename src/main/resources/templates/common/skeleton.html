@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" th:fragment="base (content)" xmlns:th="http://www.thymeleaf.org">
 
-<head th:fragment="headFragment" >
+<head th:fragment="headFragment">
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,32 +15,47 @@
 		<header
 			class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 
-			<div th:if="${user != null}">
+			<div sec:authorize="isAuthenticated()">
 				<div class="col-md-auto text-start">
-					<p><b><span th:text="${user.name}"></span> <span th:text="${user.firstname}"></span></b></p>
+					<p><b>
+							<div sec:authentication="name"></div></span>
+						</b>
+					</p>
 				</div>
 			</div>
-
 			<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
 				<li><a href="#" class="nav-link px-2 link-secondary" th:href="@{/}">Home</a></li>
-				<li><a href="#" class="nav-link px-2" th:href="@{/quizzes}">Quizzes</a></li>
-				<li><a href="#" class="nav-link px-2" th:href="@{/account}">Account</a></li>
-				<li><a href="#" class="nav-link px-2" th:href="@{/progress}">Progress</a></li>
-				<li><a href="#" class="nav-link px-2" th:href="@{/about}">About</a></li>
+				<div sec:authorize="hasAnyRole('TEACHER','STUDENT')">
+					<li><a href="#" class="nav-link px-2" th:href="@{/dashboard}">Dashboard</a></li>
+				</div>
+				<div sec:authorize="hasRole('USER') or isAnonymous()">
+					<li><a href="#" class="nav-link px-2" th:href="@{/quizzes}">Quizzes</a></li>
+				</div>
+				<div sec:authorize="hasRole('USER')">
+					<li><a href="#" class="nav-link px-2" th:href="@{/progress}">Progress</a></li>
+				</div>
+				<div sec:authorize="isAuthenticated()">
+					<li><a href="#" class="nav-link px-2" th:href="@{/account}">Account</a></li>
+				</div>
 			</ul>
 
 			<div class="col-md-3 text-end">
-				<div th:if="${user != null}">
+				<div sec:authorize="isAuthenticated()">
 					<a class="btn btn-primary  me-2" th:href="@{/logout}">Logout</a>
 				</div>
-				<div th:unless="${user != null}">
+				<div sec:authorize="isAnonymous()">
 					<a class="btn btn-primary  me-2" th:href="@{/login}">Login</a>
 					<a class="btn btn-primary" th:href="@{/register}">Sign-up</a>
 				</div>
 			</div>
 		</header>
-		<div class="alert alert-success alert-dismissible fade show mt-2" role="alert" th:if="${successMessage != null}">
+		<div class="alert alert-success alert-dismissible fade show mt-2" role="alert"
+			th:if="${successMessage != null}" id="success-message">
 			<strong th:text="${successMessage}"></strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		<div class="alert alert-danger alert-dismissible fade show mt-2" role="alert" id="fail-message" th:if="${failMessage != null}">
+			<strong th:text="${failMessage}"></strong>
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 		<main th:replace="${content}">

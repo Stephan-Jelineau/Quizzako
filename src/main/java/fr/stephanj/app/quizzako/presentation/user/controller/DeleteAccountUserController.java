@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fr.stephanj.app.quizzako.application.user.usecase.UserDeleteAccountUseCase;
+import fr.stephanj.app.quizzako.application.user.UserDeleteAccountUseCase;
 import fr.stephanj.app.quizzako.presentation.HomeConstants;
-import fr.stephanj.app.quizzako.presentation.user.controller.common.UserConstants;
+import fr.stephanj.app.quizzako.presentation.user.common.UserConstants;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RequestMapping(UserConstants.USER_DELETE_URL)

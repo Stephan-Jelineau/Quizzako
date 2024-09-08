@@ -1,8 +1,5 @@
 package fr.stephanj.app.quizzako.infrastructure.requestrole.entity;
 
-import java.time.LocalDate;
-
-import fr.stephanj.app.quizzako.domain.requestrole.model.RequestRole;
 import fr.stephanj.app.quizzako.infrastructure.user.entity.UserEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -27,36 +24,34 @@ public class RequestRoleEntity {
 	@NotNull
 	@OneToOne(cascade = CascadeType.REMOVE, optional = false)
 	@JoinColumn(name = "user_id")
-	UserEntity user;
+	private UserEntity user;
 
 	@NotBlank
 	@Column(name = "role_resquested")
-	String roleResquested;
+	private String roleResquested;
 
 	@Column(name = "is_active")
-	boolean isActive;
+	private boolean isActive;
 
 	@NotNull
 	@Column(name = "open_date")
-	LocalDate openDate;
+	private String openDate;
 
 	@Column(name = "close_date")
-	LocalDate closeDate;
+	private String closeDate;
 
 	public RequestRoleEntity() {
 
 	}
 
-	public RequestRoleEntity(@NotNull RequestRole request, @NotNull UserEntity user) {
-		if(request.getId() != null)
-			this.id = request.getId();
+	public RequestRoleEntity(Long id, @NotNull UserEntity user, @NotBlank String roleResquested, boolean isActive,
+			@NotNull String openDate, String closeDate) {
+		this.id = id;
 		this.user = user;
-		this.roleResquested = request.getRoleResquested().toString();
-		this.isActive = request.isActive();
-		this.openDate = request.getOpenDate();
-
-		if (request.getCloseDate() != null)
-			this.closeDate = request.getCloseDate();
+		this.roleResquested = roleResquested;
+		this.isActive = isActive;
+		this.openDate = openDate;
+		this.closeDate = closeDate;
 	}
 
 	public Long getId() {
@@ -87,19 +82,19 @@ public class RequestRoleEntity {
 		this.isActive = isActive;
 	}
 
-	public LocalDate getOpenDate() {
+	public String getOpenDate() {
 		return openDate;
 	}
 
-	public void setOpenDate(LocalDate openDate) {
+	public void setOpenDate(String openDate) {
 		this.openDate = openDate;
 	}
 
-	public LocalDate getCloseDate() {
+	public String getCloseDate() {
 		return closeDate;
 	}
 
-	public void setCloseDate(LocalDate closeDate) {
+	public void setCloseDate(String closeDate) {
 		this.closeDate = closeDate;
 	}
 }

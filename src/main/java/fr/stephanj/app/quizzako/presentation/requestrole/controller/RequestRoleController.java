@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fr.stephanj.app.quizzako.application.requestrole.usecase.SendRequestRoleUseCase;
+import fr.stephanj.app.quizzako.application.requestrole.SendRequestRoleUseCase;
 import fr.stephanj.app.quizzako.presentation.HomeConstants;
 import fr.stephanj.app.quizzako.presentation.requestrole.common.RequestRoleConstants;
-import fr.stephanj.app.quizzako.presentation.user.controller.common.UserConstants;
+import fr.stephanj.app.quizzako.presentation.user.common.UserConstants;
 
 @RequestMapping(RequestRoleConstants.REQUEST_ROLE_URL)
 @Controller

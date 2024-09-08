@@ -8,5 +8,9 @@ public class AdminConstants {
 	//Pages
 	public static final String ADMIN_ROOT_PAGE = "/admin";
 	public static final String ADMIN_HOME_PAGE = ADMIN_ROOT_PAGE + "/admin_home";
+	
+	// Attr
+	public static final String WARNING_MESSAGE_ATTR = "warningMessage";
+	public static final String SUCCESS_MESSAGE_ATTR = "successMessage";
 
 }
