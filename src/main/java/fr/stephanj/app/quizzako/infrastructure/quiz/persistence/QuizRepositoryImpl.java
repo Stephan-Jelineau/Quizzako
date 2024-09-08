@@ -89,4 +89,14 @@ public class QuizRepositoryImpl implements QuizRepository {
 		return null;
 	}
 
+	@Override
+	public List<Quiz> getAssignedQuizzesByUserId(Long userId) {
+		List<QuizEntity> allQuizByUserId = jpaQuizRepo.findAllAssignedQuizByUserId(userId);
+
+		if (!allQuizByUserId.isEmpty())
+			return allQuizByUserId.stream().map(QuizEntityMapper::toDomain).toList();
+
+		return null;
+	}
+
 }

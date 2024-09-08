@@ -1,5 +1,7 @@
 package fr.stephanj.app.quizzako.infrastructure.score.mapper;
 
+import java.math.BigDecimal;
+
 import fr.stephanj.app.quizzako.domain.Score;
 import fr.stephanj.app.quizzako.infrastructure.quiz.mapper.QuizEntityMapper;
 import fr.stephanj.app.quizzako.infrastructure.score.entity.ScoreEntity;
@@ -9,7 +11,14 @@ public class ScoreEntityMapper {
 
 	public static ScoreEntity toEntity(Score score) {
 		return new ScoreEntity(score.getId(), UserEntityMapper.toEntity(score.getUser()),
-				QuizEntityMapper.toEntity(score.getQuiz()), String.valueOf(score.getScore()), score.getSubmissionDate());
+				QuizEntityMapper.toEntity(score.getQuiz()), String.valueOf(score.getScore()),
+				score.getSubmissionDate());
+	}
+
+	public static Score toDomain(ScoreEntity scoreEntity) {
+		return new Score(scoreEntity.getId(), QuizEntityMapper.toDomain(scoreEntity.getQuiz()),
+				UserEntityMapper.toDomain(scoreEntity.getUser()), new BigDecimal(scoreEntity.getScore()),
+				scoreEntity.getSubmissionDate());
 	}
 
 }

@@ -20,4 +20,6 @@ public interface QuizRepository {
 	Quiz getQuizByIdOwnedByUserId(Long idQuiz, Long idUser);
 
 	List<Quiz> getAssignedQuizzesByCohortId(Long id);
+
+	List<Quiz> getAssignedQuizzesByUserId(Long userId);
 }

@@ -64,8 +64,8 @@ public class ShowCohortsGlobalScoreView {
 					existingScores.add(isScoreExisting);
 				}
 
-				BigDecimal partipationPercentage = Score.computeParticipationPercentage(existingScores.size(),
-						existingScores.stream().filter(e -> e.equals(true)).count());
+				BigDecimal partipationPercentage = Score.computeParticipationPercentage(existingScores.stream().filter(e -> e.equals(true)).count(),
+						members.size());
 
 				dto.getQuizzesNameToAccomplishment().put(quiz.getName(), String.valueOf(partipationPercentage));
 			}

@@ -63,10 +63,18 @@ public class Score {
 		return computeScoreLogic(questions, answers);
 	}
 
-	public static BigDecimal computeParticipationPercentage(int numberOfQuiz, long numberOfParticipation) {
-		BigDecimal paticipationPercentage = BigDecimal.valueOf(numberOfQuiz)
-				.divide(BigDecimal.valueOf(numberOfParticipation), 2, RoundingMode.HALF_UP).scaleByPowerOfTen(2);
-		return paticipationPercentage;
+	public static BigDecimal computeParticipationPercentage(long numberOfParticipation,
+			long numberOfRequiredParticipation) {
+		if (numberOfRequiredParticipation == 0)
+			return BigDecimal.ZERO;
+
+		BigDecimal participation = new BigDecimal(numberOfParticipation);
+		BigDecimal requiredParticipation = new BigDecimal(numberOfRequiredParticipation);
+		BigDecimal percentage = participation.divide(requiredParticipation, 4, RoundingMode.HALF_UP)
+				.multiply(new BigDecimal(100));
+		BigDecimal roundedPercentage = new BigDecimal(Math.ceil(percentage.doubleValue()));
+
+		return roundedPercentage;
 	}
 
 	private static BigDecimal computeScoreLogic(List<Question> questions, Map<Long, String> answers) {

@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.stephanj.app.quizzako.domain.Score;
+import fr.stephanj.app.quizzako.domain.exception.score.ScoreNotFoundException;
 import fr.stephanj.app.quizzako.domain.repository.ScoreRepository;
 import fr.stephanj.app.quizzako.infrastructure.score.entity.ScoreEntity;
 import fr.stephanj.app.quizzako.infrastructure.score.mapper.ScoreEntityMapper;
@@ -32,6 +33,13 @@ public class ScoreRepositoryImpl implements ScoreRepository {
 	@Override
 	public Boolean existByQuizIdAndUserID(Long quizId, Long userId) {
 		return jpaScoreRepo.existsByQuizIdAndUserId(quizId, userId);
+	}
+
+	@Override
+	public Score getScoreByQuizIdAndUserId(Long quizId, Long userId) {
+		ScoreEntity scoreEntity = jpaScoreRepo.findByQuizIdAndUserId(quizId, userId)
+				.orElseThrow(() -> new ScoreNotFoundException("Score not found"));
+		return ScoreEntityMapper.toDomain(scoreEntity);
 	}
 
 }

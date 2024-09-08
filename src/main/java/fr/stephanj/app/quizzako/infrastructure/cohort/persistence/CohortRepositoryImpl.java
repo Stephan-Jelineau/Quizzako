@@ -1,5 +1,6 @@
 package fr.stephanj.app.quizzako.infrastructure.cohort.persistence;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,23 @@ public class CohortRepositoryImpl implements CohortRepository {
 
 	@Override
 	public Cohort getCohortByIdOwnedByUserId(Long idCohort, Long idUser) {
-		CohortEntity entity = jpaCohortRepo.findQuizByIdWithOwnerId(idCohort, idUser).orElseThrow(
-				() -> new CohortNotFoundException("The Cohort with id " + idCohort + " was not found or not owned by you"));
+		CohortEntity entity = jpaCohortRepo.findCohortByIdWithOwnerId(idCohort, idUser)
+				.orElseThrow(() -> new CohortNotFoundException(
+						"The Cohort with id " + idCohort + " was not found or not owned by you"));
 		return CohortEntityMapper.toDomain(entity);
+	}
+
+	@Override
+	public Cohort getCohortByQuizIdAndUserId(Long quizId, Long userId) {
+		CohortEntity entity = jpaCohortRepo.findCohortByQuizIdAndUserId(quizId, userId)
+				.orElseThrow(() -> new CohortNotFoundException("The Cohort was not found"));
+		return CohortEntityMapper.toDomain(entity);
+	}
+
+	@Override
+	public LocalDateTime getAssignedDateByQuizIdAndCohortId(Long quizId, Long cohortId) {
+		LocalDateTime date = jpaCohortRepo.findAssignedDateByQuizIdAndCohortId(quizId, cohortId)
+				.orElseThrow(() -> new CohortNotFoundException("The Cohort was not found"));
+		return date;
 	}
 }

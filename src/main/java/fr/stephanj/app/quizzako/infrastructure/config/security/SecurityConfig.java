@@ -67,6 +67,7 @@ public class SecurityConfig {
 			auth.requestMatchers(AdminConstants.ADMIN_HOME_URL + "/**").hasRole(Role.ADMIN.toString());
 			auth.requestMatchers(DashboardConstants.DASHBOARD_URL + "/**").hasAnyRole(Role.STUDENT.toString(),
 					Role.TEACHER.toString());
+			auth.requestMatchers(QuizConstants.ASSIGNED_QUIZ_URL + "/**").hasRole(Role.STUDENT.toString());
 			auth.requestMatchers(QuizConstants.MY_QUIZZES_URL + "/**").hasRole(Role.TEACHER.toString());
 			auth.requestMatchers(QuizConstants.MY_COHORTS_URL + "/**").hasRole(Role.TEACHER.toString());
 			auth.requestMatchers(QuizConstants.UPDATE_MY_QUIZ_URL + "/**").hasRole(Role.TEACHER.toString());

@@ -18,10 +18,10 @@
 									</div>
 									<ul class="list-group list-group-flush"
 										th:if="${!#maps.isEmpty(cohort.quizzesNameToAccomplishment)}">
-										<li class="list-group-item"
+										<li class="list-group-item p-0"
 											th:each="entry : ${cohort.quizzesNameToAccomplishment}">
 											<span th:text="${entry.key}"></span> :
-											<span th:text="${entry.value} + '%'"></span>
+											<b><span th:text="${entry.value} + '% of participation'"></span></b>
 										</li>
 									</ul>
 								</div>

@@ -8,4 +8,6 @@ public interface ScoreRepository {
 
 	Boolean existByQuizIdAndUserID(Long quizId, Long userId);
 
+	Score getScoreByQuizIdAndUserId(Long quizId, Long userId);
+
 }

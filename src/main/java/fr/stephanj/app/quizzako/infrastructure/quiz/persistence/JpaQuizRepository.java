@@ -23,4 +23,7 @@ public interface JpaQuizRepository extends JpaRepository<QuizEntity, Long> {
 	@Query(value = "SELECT q.* FROM quiz q JOIN cohort_quiz cq ON q.id = cq.quiz_id WHERE cq.cohort_id = :cohortId", nativeQuery = true)
 	List<QuizEntity> findAllQuizByCohortId(@Param("cohortId") Long cohortId);
 
+	@Query(value = "SELECT q.* FROM quiz q JOIN cohort_quiz cq ON q.id = cq.quiz_id JOIN cohort_user cu ON cu.cohort_id = cq.cohort_id WHERE cu.user_id = :userId", nativeQuery = true)
+	List<QuizEntity> findAllAssignedQuizByUserId(@Param("userId") Long userId);
+
 }

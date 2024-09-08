@@ -78,6 +78,7 @@ CREATE TABLE score (
 CREATE TABLE cohort_quiz (
     cohort_id INT NOT NULL,
     quiz_id INT NOT NULL,
+    assigned_date DATETIME NOT NULL,
     PRIMARY KEY (cohort_id, quiz_id),
     FOREIGN KEY (cohort_id) REFERENCES cohort(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (quiz_id) REFERENCES quiz(id) ON DELETE CASCADE ON UPDATE CASCADE
