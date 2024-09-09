@@ -28,7 +28,7 @@
 				<div sec:authorize="hasAnyRole('TEACHER','STUDENT')">
 					<li><a href="#" class="nav-link px-2" th:href="@{/dashboard}">Dashboard</a></li>
 				</div>
-				<div sec:authorize="hasRole('USER') or isAnonymous()">
+				<div sec:authorize="hasRole('USER') or isAnonymous() or hasRole('STUDENT')">
 					<li><a href="#" class="nav-link px-2" th:href="@{/quizzes}">Quizzes</a></li>
 				</div>
 				<div sec:authorize="hasRole('USER')">

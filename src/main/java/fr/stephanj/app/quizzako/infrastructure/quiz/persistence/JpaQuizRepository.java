@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -26,4 +27,14 @@ public interface JpaQuizRepository extends JpaRepository<QuizEntity, Long> {
 	@Query(value = "SELECT q.* FROM quiz q JOIN cohort_quiz cq ON q.id = cq.quiz_id JOIN cohort_user cu ON cu.cohort_id = cq.cohort_id WHERE cu.user_id = :userId", nativeQuery = true)
 	List<QuizEntity> findAllAssignedQuizByUserId(@Param("userId") Long userId);
 
+	@Query(value = "SELECT cq.quiz_id FROM cohort_quiz cq WHERE cq.cohort_id = :cohortId", nativeQuery = true)
+	List<Long> findAllQuizIdAssignedByCohortId(@Param("cohortId")Long cohortId);
+
+	@Modifying
+	@Query(value = "DELETE FROM cohort_quiz WHERE cohort_id = :cohortId", nativeQuery = true)
+	void deleteAllAssignedByIdToCohortId(@Param("cohortId") Long cohortId);
+
+	@Modifying
+	@Query(value = "INSERT INTO cohort_quiz (quiz_id, cohort_id, assigned_date) VALUES (:quizId, :cohortId, CURRENT_TIMESTAMP)", nativeQuery = true)
+	void insertQuizToCohortAssigned(@Param("quizId") Long quizId, @Param("cohortId") Long cohortId);
 }

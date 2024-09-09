@@ -1,6 +1,8 @@
 package fr.stephanj.app.quizzako.presentation.quiz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,15 +25,16 @@ public class StartQuizController {
 	StartQuizUseCase useCase;
 
 	@GetMapping
-	public String startQuiz(@RequestParam(value = "id", required = true) Long id, Model model, RedirectAttributes redirectAttribute) {
+	public String startQuiz(@RequestParam(value = "id", required = true) Long id, Model model,
+			RedirectAttributes redirectAttribute, @AuthenticationPrincipal UserDetails user) {
 
-		boolean isQuizPublic = useCase.isQuizPublic(id);
-		
-		if (!isQuizPublic) {
+		boolean canStartQuiz = useCase.canStartQuiz(id, user != null ? user.getUsername() : null);
+
+		if (!canStartQuiz) {
 			redirectAttribute.addFlashAttribute(FAIL_MESSAGE, NOT_ALLOWED_QUIZ);
 			return "redirect:" + QuizConstants.QUIZZES_URL;
 		}
-		
+
 		if (!model.containsAttribute(QuizConstants.QUIZ_ATTR)) {
 			QuizFormRequest quiz = useCase.getQuizSelected(id);
 			model.addAttribute(QuizConstants.QUIZ_ATTR, quiz);

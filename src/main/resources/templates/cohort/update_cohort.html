@@ -34,7 +34,7 @@
 							<div th:each="user : ${users}" class="form-check">
 								<input class="form-check-input" type="checkbox" th:field="*{members}"
 									th:value="${user.mail}" th:checked="${#lists.contains(cohort.members, user.mail)}"
-									id="${user.mail}">
+									th:id="${user.mail}">
 								<label class="form-check-label" th:for="${user.mail}"
 									th:text="${user.name + ' ' + user.firstname}"></label>
 							</div>
