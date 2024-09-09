@@ -75,6 +75,7 @@ public class SecurityConfig {
 			auth.requestMatchers(CohortConstants.COHORT_DETAIL_URL + "/**").hasRole(Role.TEACHER.toString());
 			auth.requestMatchers(CohortConstants.COHORT_UPDATE_URL + "/**").hasRole(Role.TEACHER.toString());
 			auth.requestMatchers(CohortConstants.COHORT_SCORES_URL + "/**").hasRole(Role.TEACHER.toString());
+			auth.requestMatchers(CohortConstants.COHORT_ASSIGN_QUIZ_URL + "/**").hasRole(Role.TEACHER.toString());
 			auth.requestMatchers(QuizConstants.QUIZZES_URL).access(SecurityConfig::onlyUserStudentAndAnonymous);
 			auth.requestMatchers(QuizConstants.QUIZ_URL).access(SecurityConfig::onlyUserStudentAndAnonymous);
 			auth.requestMatchers(QuizConstants.SUBMIT_QUIZ_URL).access(SecurityConfig::onlyUserStudentAndAnonymous);

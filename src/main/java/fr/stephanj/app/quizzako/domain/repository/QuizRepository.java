@@ -22,4 +22,12 @@ public interface QuizRepository {
 	List<Quiz> getAssignedQuizzesByCohortId(Long id);
 
 	List<Quiz> getAssignedQuizzesByUserId(Long userId);
+
+	List<Long> getQuizzesIdAssignedByCohortId(Long cohortId);
+
+	boolean isOwner(Long userId, Long quizId);
+
+	void deleteAllQuizAssignedToCohort(Long cohortId);
+
+	void assignQuizToCohort(Long quizId, Long cohortId);
 }

@@ -1,0 +1,32 @@
+<html lang="en" th:replace="~{common/skeleton :: base(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+
+<section>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="d-inline-flex justify-content-between mb-4 mt-2">
+				<h2 class="text-left mb-3" th:text="${cohortQuiz.cohortName}"></h2>
+			</div>
+			<form method="post" th:action="@{/cohort/assign(id=${cohortQuiz.cohortId})}" th:object="${cohortQuiz}">
+				<div class="border rounded p-4">
+					<div class="mb-3">
+						<label for="quiz_selection" class="form-label mb-4 font-weight-bold fs-5">Assign Quizzes</label>
+						<div id="quiz_selection">
+							<div th:each="quiz : ${cohortQuiz.quizzes}" class="form-check">
+								<input class="form-check-input" type="checkbox" th:value="${quiz.id}"
+									th:field="*{ids}" th:id="${quiz.id}" th:checked="${#lists.contains(cohortQuiz.ids, quiz.id)}">
+								<label class="form-check-label" th:for="${quiz.id}"
+									th:text="${quiz.name + ' created at : ' + quiz.creationDate}"></label>
+							</div>
+						</div>
+					</div>
+					<div class="text-center">
+						<button type="submit" class="btn btn-primary mt-4">Update</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</section>
+
+</html>

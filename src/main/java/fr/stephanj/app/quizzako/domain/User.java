@@ -98,4 +98,17 @@ public final class User {
 	public Long getId() {
 		return id;
 	}
+
+	public static boolean canStartPublicQuiz(User user) {
+		if(user == null)
+			return true;
+		Role role = user.getRole();
+		return role.equals(DEFAULT_ROLE) || role.equals(Role.STUDENT);
+	}
+
+	public static boolean canStartAssignedQuiz(User user) {
+		if(user == null)
+			return false;
+		return user.getRole().equals(Role.STUDENT);
+	}
 }

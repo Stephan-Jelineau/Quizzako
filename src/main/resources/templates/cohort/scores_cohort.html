@@ -26,7 +26,7 @@
 									</ul>
 								</div>
 								<div th:if="${!#maps.isEmpty(cohort.quizzesNameToAccomplishment)}">
-									<a th:href="@{/cohort/scores/detail(id=${cohort.id})}"
+									<a th:href="@{/cohort/scores(id=${cohort.id})}"
 										class="btn btn-primary mt-3">Details</a>
 								</div>
 							</div>

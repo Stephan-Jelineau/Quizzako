@@ -99,4 +99,28 @@ public class QuizRepositoryImpl implements QuizRepository {
 		return null;
 	}
 
+	@Override
+	public List<Long> getQuizzesIdAssignedByCohortId(Long cohortId) {
+		List<Long> ids = jpaQuizRepo.findAllQuizIdAssignedByCohortId(cohortId);
+		return ids;
+	}
+
+	@Override
+	public boolean isOwner(Long userId, Long quizId) {
+		Optional<QuizEntity> quizEntity = jpaQuizRepo.findById(quizId);
+		if (quizEntity.isEmpty())
+			throw new QuizNotFoundException("The Quiz with id " + quizId + " was not found");
+		return quizEntity.get().getOwner().getId().equals(userId);
+	}
+
+	@Override
+	public void deleteAllQuizAssignedToCohort(Long cohortId) {
+		jpaQuizRepo.deleteAllAssignedByIdToCohortId(cohortId);
+	}
+
+	@Override
+	public void assignQuizToCohort(Long quizId, Long cohortId) {
+		jpaQuizRepo.insertQuizToCohortAssigned(quizId, cohortId);
+	}
+
 }
